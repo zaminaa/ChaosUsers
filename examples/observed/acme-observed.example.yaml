@@ -1,0 +1,8 @@
+run_id: 20261106-101500-gauntlet-a1b2c3
+observed_at: "2026-12-01"
+source: "production analytics, first 14 days after launch"
+sessions: 1840
+dropoff_ranking: [confirm_address, ask_order, greet, ask_address]
+occurrences:
+  P-002: true
+  P-003: false

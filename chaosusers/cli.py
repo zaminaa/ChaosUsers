@@ -32,6 +32,9 @@ def main(argv: list[str] | None = None) -> int:
     _add_run_flags(gauntlet)
     gauntlet.add_argument("--target", default="demo")
     gauntlet.add_argument("--scenario", default="demo")
+    verify = sub.add_parser("verify")
+    verify.add_argument("run_dir")
+    verify.add_argument("--observed", required=True)
     report = sub.add_parser("report")
     report.add_argument("run_dir")
     panel = sub.add_parser("panel")
@@ -39,6 +42,35 @@ def main(argv: list[str] | None = None) -> int:
     panel.add_argument("--kind", dest="artifact_kind", choices=["page", "text", "botscript"], default=None)
     _add_run_flags(panel)
     args = parser.parse_args(argv)
+    if args.command == "verify":
+        import json
+        from pathlib import Path
+
+        import yaml
+
+        from chaosusers.record.schema import Observed
+        from chaosusers.record.verify import verify_run
+
+        run_dir = Path(args.run_dir)
+        observed = Observed.model_validate(yaml.safe_load(Path(args.observed).read_text(encoding="utf-8")))
+        manifest = json.loads((run_dir / "manifest.json").read_text(encoding="utf-8"))
+        if observed.run_id != manifest["run_id"]:
+            print(f"WARNING: observed run_id {observed.run_id} differs from {manifest['run_id']}", file=sys.stderr)
+        result = verify_run(run_dir, Path(args.observed))
+        predictions = json.loads((run_dir / "predictions.json").read_text(encoding="utf-8"))["predictions"]
+        claims = {item["id"]: item["claim"] for item in predictions}
+        print(f"{'ID':<8}{'KIND':<12}{'STATUS':<12}CLAIM")
+        for row, pred in zip(result.results, predictions, strict=True):
+            print(f"{row.id:<8}{pred['kind']:<12}{row.status:<12}{claims[row.id]}")
+        if not result.receipt_intact:
+            print("WARNING: predictions.json changed after the run", file=sys.stderr)
+        precision = "n/a" if result.precision is None else f"{result.confirmed}/{result.confirmed + result.refuted} ({result.precision:.0%})"
+        print(f"Precision: {precision} · receipt intact: {'yes' if result.receipt_intact else 'no'}")
+        (run_dir / "verification.json").write_text(result.model_dump_json(indent=2), encoding="utf-8")
+        from chaosusers.report.render import write_reports
+
+        write_reports(run_dir)
+        return 0
     if args.command == "report":
         from pathlib import Path
 

@@ -2735,7 +2735,7 @@ Friday:
 - **Do not:** embed raster images or web fonts; exceed the 1200×630 viewBox.
 
 #### T29: `verify` command
-- [ ] **Goal:** the post-launch validation loop (§4.10).
+- [x] **Goal:** the post-launch validation loop (§4.10).
 - **Files:** `record/verify.py`, `examples/observed/acme-observed.example.yaml` (§4.10; set `run_id` to a placeholder; the CLI warns if it differs from the run but proceeds), modify `cli.py`, `tests/record/test_verify.py`.
 - **Interface:** `verify_run(run_dir: Path, observed_path: Path) -> Verification`; the CLI prints a table `ID  KIND  STATUS  CLAIM` and then `Precision: 2/3 (67%) · receipt intact: yes`. It writes `verification.json` and re-renders the report (verified banner).
 - **Tests:**
