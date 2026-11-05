@@ -2241,7 +2241,7 @@ Friday:
 - **Do not:** add click/typer/rich; create a `src/` layout; commit `.venv`.
 
 #### T02: LLM types and JSON extraction
-- [ ] **Goal:** shared LLM data types and robust JSON parsing.
+- [x] **Goal:** shared LLM data types and robust JSON parsing.
 - **Files:** `chaosusers/llm/__init__.py`, `llm/types.py`, `llm/jsonout.py`, `tests/llm/test_types.py`, `tests/llm/test_jsonout.py`.
 - **Interface:** §2.4 `Message`, `LLMRequest`, `LLMResponse`, `Provider`, `request_hash`. `extract_json(text) -> dict`:
   1. strip ```` ```json ```` fences
