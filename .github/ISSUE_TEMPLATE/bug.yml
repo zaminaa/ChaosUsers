@@ -1,0 +1,22 @@
+name: Bug
+description: A defect in the CLI, a scorer, or a report.
+title: "bug: "
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: chaosusers version
+    validations:
+      required: true

@@ -1,0 +1,32 @@
+name: Persona proposal
+description: Propose a behavior class or a persona for an existing class.
+title: "persona: "
+labels: ["persona"]
+body:
+  - type: input
+    id: behavior_class
+    attributes:
+      label: Behavior class
+      description: An existing id such as BC10, or a proposed new one.
+    validations:
+      required: true
+  - type: textarea
+    id: signals
+    attributes:
+      label: Observed signals
+      description: What showed up in production. No real names, tickets, or quotes that identify a person.
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: Example utterance
+    validations:
+      required: true
+  - type: checkboxes
+    id: respect
+    attributes:
+      label: Respect check
+      options:
+        - label: This describes what people do, and it follows the class respect note.
+          required: true
