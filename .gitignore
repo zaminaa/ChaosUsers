@@ -6,3 +6,4 @@ tmp-runs/
 .pytest_cache/
 .ruff_cache/
 *.egg-info/
+rubrics/calibration/**/results/*.json
