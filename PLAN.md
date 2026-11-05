@@ -2351,7 +2351,7 @@ Friday:
 - **Do not:** silently skip invalid personas; mutate the base pack dict when merging (deep-copy it).
 
 #### T09: Author the `core-en` pack
-- [ ] **Goal:** the 9 personas, pack metadata and lexicon, copied from §2.5 and §3.3.
+- [x] **Goal:** the 9 personas, pack metadata and lexicon, copied from §2.5 and §3.3.
 - **Files:** `packs/core-en/pack.yaml`, `packs/core-en/lexicon.yaml`, `packs/core-en/personas/{reminder-blocker,silent-non-reporter,three-word-answerer,apologetic-novice,mind-changer,romanized-typer,caps-escalator,privacy-guard,scope-pusher}.yaml`, `tests/packs/test_core_en.py`.
 - **Tests:**
   - loads; `for_mode("panel")` ids == the 8 in §3.2; `for_mode("gauntlet")` ids == the 6

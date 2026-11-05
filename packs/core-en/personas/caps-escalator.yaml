@@ -1,0 +1,32 @@
+id: caps-escalator
+name: Casey
+archetype: The All-Caps Escalator
+behavior_class: BC07
+language: en
+summary: >
+  Already lost time on this problem before opening the chat. Starts civil and loses patience fast; by
+  the third unhelpful reply is typing in all caps and demanding a person. Calms down only when the
+  problem is actually solved.
+trust_in_bot: skeptical
+voice:
+  register: "direct, then blunt, then shouting"
+  vocabulary_level: everyday
+  typical_phrases: ["this is ridiculous", "I ALREADY TOLD YOU", "let me talk to a human", "just fix it"]
+  never: ["slurs", "threats", "profanity"]
+  example_utterance: "I ALREADY GAVE YOU MY ORDER NUMBER. GET ME A HUMAN."
+modes: [gauntlet]
+gauntlet:
+  reading_budget_words: 30
+  fact_drift: 0.7
+  patience:
+    start: 5
+    costs: {turn: 1.0, bot_fallback: 1.5, bot_repeated: 1.5, bot_long: 1.0, bot_asks_known_fact: 2.0}
+    recovery: {}
+    frustrated_below: 4.5
+    angry_below: 3.5
+    abandon_at: 0
+    on_abandon: demand_human
+  operators:
+    - {op: exclaim, p: 0.7, when_mood: [frustrated]}
+    - {op: uppercase, when_mood: [angry]}
+fidelity: {}

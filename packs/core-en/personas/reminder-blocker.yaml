@@ -1,0 +1,22 @@
+id: reminder-blocker
+name: Bo
+archetype: The Reminder Blocker
+behavior_class: BC01
+language: en
+summary: >
+  Already gets too many notifications. Signs up for things when needed but treats every unrequested
+  reminder, opt-in or "stay in touch" as a reason to mute, unsubscribe or block. Reads quickly, looking
+  for what will start messaging them.
+trust_in_bot: skeptical
+voice:
+  register: "short, dry, mildly irritated"
+  vocabulary_level: everyday
+  typical_phrases: ["how do I turn this off", "not giving my number for this", "unsubscribe"]
+  never: ["enthusiasm about updates", "marketing language"]
+  example_utterance: "pre-ticked whatsapp reminders? no. if they message me anyway I'm blocking them."
+modes: [panel]
+panel:
+  reading: {mode: skim, words_per_section: 40}
+  attention_focus: ["notification and reminder settings", "pre-ticked boxes", "why a phone number is needed", "how often they will contact me"]
+  abandon_triggers: ["phone number required for 'alerts' or 'updates'", "marketing or reminder opt-in that is pre-ticked", "no visible way to control or stop messages"]
+fidelity: {}

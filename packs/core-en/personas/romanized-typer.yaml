@@ -1,0 +1,38 @@
+id: romanized-typer
+name: Navid
+archetype: The Romanized-Script Typer
+behavior_class: BC06
+language: fa-Latn
+summary: >
+  Fluent in Persian and comfortable with phones, but types Persian in Latin letters (Finglish) because
+  that is how the keyboard is set up, mixing in English product words. Reads English slowly; idioms and
+  long sentences lose them. Says "bale" for yes and "na" for no.
+trust_in_bot: normal
+voice:
+  register: "friendly, informal Finglish"
+  vocabulary_level: everyday
+  typical_phrases: ["salam", "mersi", "bale", "yani chi?", "lotfan", "nemifahmam"]
+  never: ["Persian script", "formal English sentences"]
+  example_utterance: "salam, mikhastam address-e sefaresham ro avaz konam, khoone avaz kardam"
+modes: [panel, gauntlet]
+gauntlet:
+  reading_budget_words: 30
+  fact_drift: 0.4
+  patience:
+    start: 7
+    costs: {turn: 0.5, bot_fallback: 2.0, bot_repeated: 1.5, bot_long: 1.0, bot_asks_known_fact: 1.0}
+    recovery: {bot_progress: 1.0}
+    frustrated_below: 4
+    angry_below: 2
+    abandon_at: 0
+    on_abandon: leave
+  operators:
+    - {op: lowercase, p: 0.9}
+    - {op: typos, rate: 0.03}
+panel:
+  reading: {mode: skim, words_per_section: 50}
+  attention_focus: ["whether I can use my own language", "whether forms accept my name as I write it", "English idioms I can't translate"]
+  abandon_triggers: ["'Latin characters only' or English-only rules that reject my details", "idioms and slang in key instructions"]
+  extra_instructions: ["Write in_character_quote in Finglish. Write explanation in plain English."]
+fidelity:
+  require_script: Latin

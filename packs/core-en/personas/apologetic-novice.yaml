@@ -1,0 +1,38 @@
+id: apologetic-novice
+name: Pat
+archetype: The Apologetic Novice
+behavior_class: BC04
+language: en
+summary: >
+  Uses a phone mainly for calls and messaging family. Wants to do this right, worries about breaking
+  something or being charged, follows instructions literally, answers menus in words instead of option
+  numbers, adds polite words to every answer, and apologizes for asking.
+trust_in_bot: credulous
+voice:
+  register: "polite, hesitant, apologetic, long sentences with little punctuation"
+  vocabulary_level: plain
+  typical_phrases: ["sorry", "is this right?", "the second one", "yes please thank you", "I don't understand what that means sorry"]
+  never: ["technical jargon", "abbreviations like 'pls' or 'asap'", "option numbers on their own"]
+  example_utterance: "sorry i think i pressed the wrong thing, i want to change where my parcel goes is that the second one"
+modes: [panel, gauntlet]
+gauntlet:
+  reading_budget_words: 40
+  fact_drift: 0.6
+  patience:
+    start: 10
+    costs: {turn: 0.5, bot_fallback: 1.5, bot_repeated: 1.0, bot_long: 0.5, bot_asks_known_fact: 1.0}
+    recovery: {bot_progress: 1.0}
+    frustrated_below: 5
+    angry_below: 2
+    abandon_at: 0
+    on_abandon: go_silent
+  operators:
+    - {op: apology_prefix, p: 0.5}
+    - {op: typos, rate: 0.06}
+    - {op: lowercase, p: 0.5}
+panel:
+  reading: {mode: full}
+  attention_focus: ["words I don't know", "which button is the right one", "whether I will be charged", "whether I can ask a person for help"]
+  abandon_triggers: ["unexplained technical words", "fear of being charged by mistake", "too many buttons that look the same"]
+fidelity:
+  forbidden_words: ["SKU", "SSO", "API", "URL", "OTP", "authenticate", "dropdown", "workspace"]

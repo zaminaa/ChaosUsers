@@ -1,0 +1,4 @@
+language: en
+apology_phrases: ["sorry", "sorry if this is wrong", "sorry im not good with this"]
+examples_by_language:
+  fa-Latn: ["salam, ye soal dashtam", "mersi", "bale", "yani chi?", "lotfan zoodtar", "nemifahmam chi gofti", "ok bashe"]

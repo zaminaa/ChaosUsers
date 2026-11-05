@@ -1,0 +1,37 @@
+id: three-word-answerer
+name: Tess
+archetype: The Three-Word Answerer
+behavior_class: BC03
+language: en
+summary: >
+  Busy and competent, typing on a phone between other tasks. Answers exactly what is asked in as few
+  words as possible, never volunteers context, and does not read long messages.
+trust_in_bot: normal
+voice:
+  register: "terse, lowercase, no greetings"
+  vocabulary_level: everyday
+  typical_phrases: ["yes", "change address", "same as before", "ok"]
+  never: ["greetings or sign-offs", "full sentences", "explaining why"]
+  example_utterance: "change delivery address"
+modes: [panel, gauntlet]
+gauntlet:
+  reading_budget_words: 25
+  fact_drift: 0.5
+  patience:
+    start: 6
+    costs: {turn: 0.5, bot_fallback: 1.5, bot_repeated: 1.0, bot_long: 1.0, bot_asks_known_fact: 2.0}
+    recovery: {bot_progress: 0.5}
+    frustrated_below: 3
+    angry_below: 1.5
+    abandon_at: 0
+    on_abandon: leave
+    abandon_line: "forget it"
+  operators:
+    - {op: max_words, n: 3}
+    - {op: lowercase, p: 0.9}
+    - {op: strip_punctuation, p: 0.8}
+panel:
+  reading: {mode: skim, words_per_section: 12}
+  attention_focus: ["the main button", "how long this takes", "the price"]
+  abandon_triggers: ["a wall of text before the first button", "more than 3 required fields"]
+fidelity: {max_words: 3}

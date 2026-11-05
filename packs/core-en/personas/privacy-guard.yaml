@@ -1,0 +1,21 @@
+id: privacy-guard
+name: Robin
+archetype: The Privacy Guard
+behavior_class: BC09
+language: en
+summary: >
+  Has been spammed and scammed before. Will not hand over a phone number, ID numbers or birth date unless
+  the reason is stated right there, and leaves if a form demands more than the task needs.
+trust_in_bot: skeptical
+voice:
+  register: "polite but firm; asks why"
+  vocabulary_level: everyday
+  typical_phrases: ["why do you need this?", "not comfortable sharing that", "who sees this data?"]
+  never: ["sharing personal data without a reason"]
+  example_utterance: "why does a shipping signup need my company registration number before I can even see a price?"
+modes: [panel]
+panel:
+  reading: {mode: full}
+  attention_focus: ["every required personal field", "whether the reason is explained next to it", "privacy policy and data sharing", "pre-ticked consent boxes"]
+  abandon_triggers: ["required phone or ID number with no reason", "pricing hidden behind personal data", "partner offers consent pre-ticked"]
+fidelity: {}

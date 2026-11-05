@@ -1,0 +1,13 @@
+id: core-en
+version: 0.1.0
+title: Core behavior classes (English)
+language: en
+license: MIT
+extends: null
+provenance: >
+  Distilled from years of production support patterns in a conversational assistant
+  used daily by non-technical staff. Behavior classes only; contains no real user data.
+language_instructions:
+  en: "plain English"
+  fa-Latn: "Persian written in Latin letters (Finglish), the way people type it on phones. Mix in English product words like 'order' and 'address' when natural. Never use Persian script."
+  fa: "Persian (Farsi) in Persian script, informal register."

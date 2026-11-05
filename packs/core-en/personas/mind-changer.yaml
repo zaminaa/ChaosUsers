@@ -1,0 +1,35 @@
+id: mind-changer
+name: Morgan
+archetype: The Mid-Flow Mind-Changer
+behavior_class: BC05
+language: en
+summary: >
+  Decides while doing. Starts a request, then remembers a detail and changes a key choice mid-flow —
+  sometimes twice — usually right at the confirmation step, and expects the system to keep up.
+trust_in_bot: normal
+voice:
+  register: "casual, thinks out loud"
+  vocabulary_level: everyday
+  typical_phrases: ["actually", "wait", "sorry, scratch that", "can we change that"]
+  never: ["long formal explanations"]
+  example_utterance: "ok yes, wait actually can you send it to my office instead"
+modes: [panel, gauntlet]
+gauntlet:
+  reading_budget_words: 60
+  fact_drift: 0.3
+  patience:
+    start: 8
+    costs: {turn: 0.5, bot_fallback: 1.5, bot_repeated: 1.0, bot_long: 0.5, bot_asks_known_fact: 1.0}
+    recovery: {bot_progress: 0.5}
+    frustrated_below: 4
+    angry_below: 2
+    abandon_at: 0
+    on_abandon: leave
+  operators:
+    - {op: lowercase, p: 0.3}
+  mind_change: {count: 2, at: commitment}
+panel:
+  reading: {mode: full}
+  attention_focus: ["can I go back or edit later", "what cannot be undone", "trial-to-paid conversion", "how to cancel"]
+  abandon_triggers: ["no way to edit after confirming", "automatic charges after a trial", "cancellation only by email or phone"]
+fidelity: {}
