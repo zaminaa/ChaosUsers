@@ -2272,7 +2272,7 @@ Friday:
 - **Do not:** check the budget *after* the call; use floats from env without validation (`max_usd` must be > 0).
 
 #### T04: HTTP providers
-- [ ] **Goal:** OpenAI-compatible and Anthropic adapters with no SDKs.
+- [x] **Goal:** OpenAI-compatible and Anthropic adapters with no SDKs.
 - **Files:** `llm/providers.py`, `tests/llm/test_providers.py`.
 - **Interface:** §2.4. `class ProviderError(Exception): status: int; body: str`. The constructor takes an optional `transport: httpx.BaseTransport | None` for tests. `name` is `"openai"` / `"anthropic"`.
 - **Tests (with `httpx.MockTransport`):**
