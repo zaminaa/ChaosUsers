@@ -1,0 +1,33 @@
+name: ci
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            python: "3.11"
+          - os: ubuntu-latest
+            python: "3.13"
+          - os: windows-latest
+            python: "3.13"
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: uv sync --group dev
+      - run: uv run ruff check .
+      - run: uv run pytest -q
+      - run: uv run chaosusers packs validate core-en
+      - run: uv run chaosusers packs validate core-fa
+      - name: demo gauntlet
+        if: hashFiles('cassettes/demo-gauntlet.jsonl') != ''
+        run: uv run chaosusers demo --no-open --out ci-runs
+      - name: demo panel
+        if: hashFiles('cassettes/demo-gauntlet.jsonl') != ''
+        run: uv run chaosusers demo panel --no-open --out ci-runs

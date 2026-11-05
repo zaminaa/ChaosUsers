@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[project]
+name = "chaosusers"
+version = "0.1.0"
+description = "Synthetic users distilled from real production behavior. Find where your bot or landing page breaks before your users do."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+authors = [{ name = "zaminaa" }]
+keywords = ["llm", "evaluation", "chatbot", "testing", "synthetic-users", "personas", "ux"]
+dependencies = ["pydantic>=2.7", "pyyaml>=6.0", "httpx>=0.27", "jinja2>=3.1"]
+
+[project.urls]
+Homepage = "https://github.com/zaminaa/ChaosUsers"
+
+[project.scripts]
+chaosusers = "chaosusers.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["chaosusers"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"packs" = "chaosusers/_data/packs"
+"prompts" = "chaosusers/_data/prompts"
+"rubrics" = "chaosusers/_data/rubrics"
+"scenarios" = "chaosusers/_data/scenarios"
+"examples" = "chaosusers/_data/examples"
+"cassettes" = "chaosusers/_data/cassettes"
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
