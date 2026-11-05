@@ -2299,7 +2299,7 @@ Friday:
 - **Do not:** let any module other than `llm/client.py` call `provider.complete`; write the API key into the log.
 
 #### T06: Run config and model resolution
-- [ ] **Goal:** turn flags and env vars into a `RunConfig` and a ready `LLMClient`.
+- [x] **Goal:** turn flags and env vars into a `RunConfig` and a ready `LLMClient`.
 - **Files:** `chaosusers/config.py`, `tests/test_config.py`.
 - **Interface:**
   ```python
