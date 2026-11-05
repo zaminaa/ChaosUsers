@@ -14,6 +14,7 @@ class CheckResult(BaseModel):
     severity: str
     passed: bool | None
     detail: str
+    description: str = ""
 
 
 def get_path(state, path: str):
@@ -69,4 +70,6 @@ def _one(check: CheckSpec, scenario: Scenario, transcript: Transcript) -> CheckR
 
 
 def _result(check: CheckSpec, passed: bool | None, detail: str) -> CheckResult:
-    return CheckResult(check_id=check.id, kind=check.kind, severity=check.severity, passed=passed, detail=detail)
+    return CheckResult(
+        check_id=check.id, kind=check.kind, severity=check.severity, passed=passed, detail=detail, description=check.description
+    )

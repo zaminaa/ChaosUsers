@@ -2541,7 +2541,7 @@ Friday:
 - **Do not:** let the judge output a numeric score; pass deterministic results into the judge prompt; average labels.
 
 #### T19: Aggregation, disagreements, grade
-- [ ] **Goal:** `GauntletScores`, with the grade computed only from deterministic outcomes.
+- [x] **Goal:** `GauntletScores`, with the grade computed only from deterministic outcomes.
 - **Files:** `rubrics/grade_v1.yaml` (§4.3 exactly), complete `gauntlet/score.py`, `tests/gauntlet/test_score.py`.
 - **Interface:**
   ```python
