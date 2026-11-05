@@ -1,0 +1,9 @@
+adapter: http
+name: AcmeBot (HTTP)
+url: http://127.0.0.1:8787/chat
+method: POST
+headers: {Content-Type: application/json}
+body: {session_id: "{{session_id}}", message: "{{message}}"}
+reply_path: reply
+state_url: http://127.0.0.1:8787/state/{{session_id}}
+timeout_s: 20

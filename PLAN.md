@@ -2479,7 +2479,7 @@ Friday:
 - **Do not:** coerce `None` to `False`; consult the judge here.
 
 #### T16: Target adapters
-- [ ] **Goal:** `load_target` for the `python`, `http` and `openai_chat` adapters.
+- [x] **Goal:** `load_target` for the `python`, `http` and `openai_chat` adapters.
 - **Files:** complete `gauntlet/targets.py`, `examples/targets/{acme-demo,acme-http,openai-system-prompt}.yaml` (§2.8 exactly), `tests/gauntlet/test_targets.py`.
 - **Interface:** `load_target(spec)` (`"demo"` → acme-demo.yaml); `PythonTarget` imports `factory` via `importlib`. `HttpTarget`:
   - template walking: `"{{messages_json}}"` whole-string → list

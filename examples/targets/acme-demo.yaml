@@ -1,0 +1,3 @@
+adapter: python
+name: AcmeBot (demo)
+factory: chaosusers.demo.acmebot:create_target
