@@ -2430,7 +2430,7 @@ Friday:
 ### Phase C: Gauntlet
 
 #### T13: Scenario model and demo scenario
-- [ ] **Goal:** the scenario schema and loader, plus the AcmeBot scenario file.
+- [x] **Goal:** the scenario schema and loader, plus the AcmeBot scenario file.
 - **Files:** complete `gauntlet/scenario.py` (§2.8), `scenarios/acme/change_address.yaml` (§5.2 exactly), `tests/gauntlet/test_scenario.py`.
 - **Interface:** `load_scenario(spec: str) -> Scenario` (`"demo"` → `scenarios/acme/change_address.yaml`; fills `sha256`), `effective_match_tokens(...)`, `match_step(scenario, bot_text) -> StepSpec | None` (first match in list order), `funnel_index(scenario, step_id) -> int | None`.
 - **Validation:**
