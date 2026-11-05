@@ -1,0 +1,6 @@
+kind: botscript
+title: AcmeBot address-change script
+nodes:
+  - {id: welcome, bot: "Hi! I'm AcmeBot. Reply with a number: 1. Track 2. Change address 3. Refund", options: ["1", "2", "3"]}
+  - {id: order, bot: "Please enter your order number (format: #A1234).", options: []}
+  - {id: confirm, bot: "Address changes may incur a re-routing fee of up to $4.99. Reply YES to confirm or NO to cancel.", options: ["YES", "NO"]}

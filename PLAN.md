@@ -2629,7 +2629,7 @@ Friday:
 ### Phase D: Panel
 
 #### T23: Artifact ingestion and reading filter
-- [ ] **Goal:** URL/HTML/markdown/text/botscript → numbered sections; the per-persona visible text.
+- [x] **Goal:** URL/HTML/markdown/text/botscript → numbered sections; the per-persona visible text.
 - **Files:** `panel/__init__.py`, `panel/artifact.py`, `examples/artifacts/acme-landing.html` (§5.3), `examples/artifacts/acme-onboarding.md`, `examples/artifacts/acme-botscript.yaml` (§5.3), `tests/panel/test_artifact.py`.
 - **Interface:**
   ```python
