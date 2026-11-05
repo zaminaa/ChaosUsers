@@ -5,7 +5,9 @@ the one who apologizes and taps the wrong thing, the one who types Finglish, the
 ALL CAPS — thrown at your chatbot or landing page before launch. You get a failure map, not a fortune:
 every run records falsifiable predictions you can check against reality after launch.
 
-![Failure Report Card](docs/assets/card-placeholder.svg)
+<p align="center">
+  <img src="docs/assets/social-preview.png" alt="ChaosUsers failure report card from the scripted AcmeBot demo: grade F, 1 of 12 conversations succeeded, 3 silent failures, 2 forbidden actions" width="100%">
+</p>
 
 ## 30-second quickstart (free, offline, no API key)
 ```

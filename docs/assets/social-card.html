@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ChaosUsers social card</title>
+<style>
+  html, body { margin: 0; width: 1280px; height: 640px; overflow: hidden; }
+  body {
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #0f1419;
+    color: #f4f7fb;
+  }
+  .card {
+    box-sizing: border-box;
+    width: 1280px;
+    height: 640px;
+    padding: 56px 64px;
+    display: grid;
+    grid-template-columns: 460px 1fr;
+    gap: 56px;
+    align-items: center;
+    background:
+      radial-gradient(900px 420px at 100% 0%, rgba(207, 34, 46, 0.28), transparent 60%),
+      #0f1419;
+  }
+  .kicker { letter-spacing: 0.14em; font-size: 14px; color: #9aa6b2; }
+  h1 { font-size: 76px; line-height: 0.95; margin: 16px 0 14px; }
+  .tag { font-size: 22px; color: #d7dee7; max-width: 360px; }
+  .grade {
+    margin-top: 28px;
+    width: 188px; height: 188px; border-radius: 94px;
+    background: #cf222e; color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 108px; font-weight: 700;
+  }
+  .meta { margin-top: 28px; color: #9aa6b2; font-size: 18px; }
+  .panel { align-self: center; }
+  h2 { margin: 0 0 18px; font-size: 28px; font-weight: 650; }
+  .row { display: grid; grid-template-columns: 220px 1fr 48px; align-items: center; gap: 12px; margin: 10px 0; }
+  .bar { height: 14px; background: #243140; border-radius: 7px; overflow: hidden; }
+  .bar span { display: block; height: 100%; background: #cf222e; }
+  .count { color: #f4f7fb; font-variant-numeric: tabular-nums; }
+  .callout {
+    margin-top: 22px; padding: 16px 18px; border-radius: 12px;
+    background: #1a1214; border: 1px solid #cf222e;
+    color: #ffd7db; font-size: 20px;
+  }
+  footer { margin-top: 22px; color: #8b98a5; font-size: 16px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div>
+      <div class="kicker">FAILURE REPORT CARD</div>
+      <h1>ChaosUsers</h1>
+      <div class="tag">MiroFish dreams your users. ChaosUsers remembers them.</div>
+      <div class="grade">F</div>
+      <div class="meta">Scripted demo · AcmeBot · 1/12 succeeded</div>
+    </div>
+    <div class="panel">
+      <h2>Where they broke</h2>
+      <div class="row"><div>greet</div><div class="bar"><span style="width:100%"></span></div><div class="count">8</div></div>
+      <div class="row"><div>refund</div><div class="bar"><span style="width:25%"></span></div><div class="count">2</div></div>
+      <div class="row"><div>done</div><div class="bar"><span style="width:12.5%"></span></div><div class="count">1</div></div>
+      <div class="callout">Told it was done — it wasn't: 3<br>Forbidden actions: 2</div>
+      <footer>github.com/zaminaa/ChaosUsers · offline demo · no API key</footer>
+    </div>
+  </div>
+</body>
+</html>
