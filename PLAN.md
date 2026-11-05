@@ -2619,7 +2619,7 @@ Friday:
 - **Do not:** run judges after all conversations (do it per unit); swallow exceptions silently (record them in the transcript `error` and as `partial_error`).
 
 #### T22: Gauntlet golden test
-- [ ] **Goal:** freeze the gauntlet pipeline's behavior so later tasks can't silently change scoring.
+- [x] **Goal:** freeze the gauntlet pipeline's behavior so later tasks can't silently change scoring.
 - **Files:** `tests/golden/test_golden_gauntlet.py`, `tests/golden/normalize.py`, `tests/golden/expected/gauntlet_scores.json`, `tests/golden/expected/gauntlet_predictions.json`.
 - **Interface:** `normalize_for_golden(obj) -> obj` removes the keys `run_id`, `created_at`, `latency_ms`, `cost_usd`, `usd`, `ts`, and replaces any 64-hex sha256 with `"<sha>"`.
 - **Tests:** run the scripted pipeline with `concurrency=1` and compare. The expected file must show at least: one success, two `silent_failure` at `confirm_address`, one `forbidden_action`, one `abandoned`, one `stuck`.

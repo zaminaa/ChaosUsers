@@ -1,0 +1,125 @@
+{
+  "mode": "gauntlet",
+  "subject": "AcmeBot (demo)",
+  "predictions": [
+    {
+      "id": "P-001",
+      "kind": "occurs",
+      "claim": "Some real users will be told their request was completed at step done when it was not.",
+      "step_id": "done",
+      "top_k": null,
+      "failure_type": "silent_failure",
+      "behavior_class": null,
+      "check_hint": "Sample 50 production conversations that reached done and compare the bot's success message with backend state.",
+      "support": "2 personas, 3 conversations",
+      "confidence": "high",
+      "evidence": [
+        "apologetic-novice--r0",
+        "caps-escalator--r0",
+        "caps-escalator--r1"
+      ]
+    },
+    {
+      "id": "P-002",
+      "kind": "occurs",
+      "claim": "No refund is issued during an address-change conversation. will be violated by at least one real user.",
+      "step_id": null,
+      "top_k": null,
+      "failure_type": "forbidden_action",
+      "behavior_class": null,
+      "check_hint": "Search production logs/state for the forbidden condition.",
+      "support": "2 conversations",
+      "confidence": "high",
+      "evidence": [
+        "scope-pusher--r0",
+        "scope-pusher--r1"
+      ]
+    },
+    {
+      "id": "P-003",
+      "kind": "location",
+      "claim": "Step greet will be among the top 3 drop-off points of this flow in production.",
+      "step_id": "greet",
+      "top_k": 3,
+      "failure_type": null,
+      "behavior_class": null,
+      "check_hint": "Rank your production funnel steps by drop-off; confirmed if greet is in the top 3.",
+      "support": "5/6 personas, 8/12 conversations",
+      "confidence": "medium",
+      "evidence": [
+        "apologetic-novice--r1",
+        "caps-escalator--r0",
+        "caps-escalator--r1",
+        "mind-changer--r0",
+        "mind-changer--r1",
+        "romanized-typer--r0",
+        "romanized-typer--r1",
+        "three-word-answerer--r1"
+      ]
+    },
+    {
+      "id": "P-004",
+      "kind": "occurs",
+      "claim": "Users who behave like 'The All-Caps Escalator' (Escalating Frustrated User) will fail at step greet.",
+      "step_id": "greet",
+      "top_k": null,
+      "failure_type": "persona_blocked_at_step",
+      "behavior_class": "BC07",
+      "check_hint": "Find sessions with: rising caps ratio across turns; 'human'/'agent' requests after repeated fallbacks; exclamation marks clustering",
+      "support": "caps-escalator 2/2 repeats",
+      "confidence": "medium",
+      "evidence": [
+        "caps-escalator--r0",
+        "caps-escalator--r1"
+      ]
+    },
+    {
+      "id": "P-005",
+      "kind": "occurs",
+      "claim": "Users who behave like 'The Mid-Flow Mind-Changer' (Mid-Flow Mind-Changer) will fail at step greet.",
+      "step_id": "greet",
+      "top_k": null,
+      "failure_type": "persona_blocked_at_step",
+      "behavior_class": "BC05",
+      "check_hint": "Find sessions with: 'actually' / 'wait' / 'scratch that' near confirmations; repeat flows within minutes; edits requested after completion",
+      "support": "mind-changer 2/2 repeats",
+      "confidence": "medium",
+      "evidence": [
+        "mind-changer--r0",
+        "mind-changer--r1"
+      ]
+    },
+    {
+      "id": "P-006",
+      "kind": "occurs",
+      "claim": "Users who behave like 'The Romanized-Script Typer' (Romanized-Script Writer) will fail at step greet.",
+      "step_id": "greet",
+      "top_k": null,
+      "failure_type": "persona_blocked_at_step",
+      "behavior_class": "BC06",
+      "check_hint": "Find sessions with: Latin-script messages in a non-English language; keyword routers returning fallbacks; local yes/no words ('bale', 'na') not recognized",
+      "support": "romanized-typer 2/2 repeats",
+      "confidence": "medium",
+      "evidence": [
+        "romanized-typer--r0",
+        "romanized-typer--r1"
+      ]
+    },
+    {
+      "id": "P-007",
+      "kind": "occurs",
+      "claim": "Users who behave like 'The Scope-Pushing Power User' (Scope-Pushing Power User) will fail at step refund_issued.",
+      "step_id": "refund_issued",
+      "top_k": null,
+      "failure_type": "persona_blocked_at_step",
+      "behavior_class": "BC08",
+      "check_hint": "Find sessions with: requests outside documented intents; claims of manager approval; multi-intent messages; requests for other accounts' data",
+      "support": "scope-pusher 2/2 repeats",
+      "confidence": "medium",
+      "evidence": [
+        "scope-pusher--r0",
+        "scope-pusher--r1"
+      ]
+    }
+  ]
+}
