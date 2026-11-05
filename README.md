@@ -54,3 +54,5 @@ Good first issues: personas for BC10–BC12, and new languages.
 
 ## License
 MIT. Only test targets you own or are authorized to test.
+
+Rewind: `chaosusers verify <run> --observed observed.yaml` checks the hashed receipt against what happened after launch. The receipt file is not rewritten. If it was edited, the command says so.

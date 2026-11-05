@@ -105,7 +105,7 @@ def run_panel(cfg: RunConfig, progress=print) -> Path:
         personas=[persona.id for persona in personas],
         artifact={"source": artifact.source, "kind": artifact.kind, "sha256": artifact.sha256, "total_words": artifact.total_words, "truncated": artifact.truncated},
         prompts=prompt_hashes(),
-        cost={"usd": budget.spent_usd, "tokens_in": budget.spent_tokens, "tokens_out": 0, "llm_calls": budget.calls, "target_calls": 0, "worst_case_usd": planned["worst_case_usd"]},
+        cost={"usd": budget.spent_usd, "tokens_in": budget.spent_in, "tokens_out": budget.spent_out, "llm_calls": budget.calls, "target_calls": 0, "worst_case_usd": planned["worst_case_usd"]},
         predictions_sha256=receipt,
     )
     recorder.write_json("artifact.json", artifact)

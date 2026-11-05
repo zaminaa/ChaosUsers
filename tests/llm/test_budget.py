@@ -10,6 +10,8 @@ def test_commit_uses_exact_price():
     rid = budget.reserve(1000, 500)
     assert budget.commit(rid, 1000, 500) == 0.0012
     assert budget.spent_usd == 0.0012
+    assert budget.spent_in == 1000
+    assert budget.spent_out == 500
     assert budget.calls == 1
 
 

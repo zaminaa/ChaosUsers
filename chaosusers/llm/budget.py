@@ -43,6 +43,8 @@ class Budget:
         self.price_out = price_out
         self.spent_usd = 0.0
         self.spent_tokens = 0
+        self.spent_in = 0
+        self.spent_out = 0
         self.calls = 0
         self._lock = threading.Lock()
         self._next = 1
@@ -68,6 +70,8 @@ class Budget:
         with self._lock:
             self._held.pop(rid)
             self.spent_usd = float(self._spent_decimal() + actual)
+            self.spent_in += tokens_in
+            self.spent_out += tokens_out
             self.spent_tokens += tokens_in + tokens_out
             self.calls += 1
             return float(actual)

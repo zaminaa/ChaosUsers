@@ -135,7 +135,7 @@ def run_gauntlet(cfg: RunConfig, progress=print) -> Path:
         prompts=prompt_hashes(),
         rubric={"id": rubric.id, "version": rubric.version, "sha256": rubric_sha, "grade": grade_rubric["id"]},
         cost={
-            "usd": budget.spent_usd, "tokens_in": budget.spent_tokens, "tokens_out": 0,
+            "usd": budget.spent_usd, "tokens_in": budget.spent_in, "tokens_out": budget.spent_out,
             "llm_calls": budget.calls, "target_calls": sum(item.user_turns for item in scored),
             "worst_case_usd": planned["worst_case_usd"],
         },
