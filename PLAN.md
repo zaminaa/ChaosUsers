@@ -2566,7 +2566,7 @@ Friday:
 - **Do not:** read any judge field inside `compute_grade`; hardcode thresholds (read `grade_v1.yaml`).
 
 #### T20: Record schemas, recorder, predictions
-- [ ] **Goal:** the run directory, manifest, and hashed prediction receipt.
+- [x] **Goal:** the run directory, manifest, and hashed prediction receipt.
 - **Files:** `chaosusers/record/__init__.py`, `record/schema.py` (§2.11), `record/recorder.py`, `record/predictions.py` (§4.9), `tests/record/test_recorder.py`, `tests/record/test_predictions.py`.
 - **Interface:**
   ```python

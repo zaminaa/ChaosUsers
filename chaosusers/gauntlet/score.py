@@ -69,6 +69,7 @@ class ConversationScore(BaseModel):
     fidelity_rate: float
     user_turns: int
     highlight: dict | None = None
+    abandon_action: str | None = None
 
 
 class StepFailure(BaseModel):
@@ -131,6 +132,7 @@ def score_conversation(
         fidelity_rate=(clean / len(users)) if users else 1.0,
         user_turns=len(users),
         highlight=_highlight(transcript, scenario, checks) if outcome == "silent_failure" else None,
+        abandon_action=transcript.abandon_action,
     )
 
 
