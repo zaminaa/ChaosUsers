@@ -2404,7 +2404,7 @@ Friday:
 - **Do not:** let the LLM decide abandonment; add hidden randomness to the state machine.
 
 #### T12: Prompts registry, persona instance, directives
-- [ ] **Goal:** versioned prompt files and the persona instance builder.
+- [x] **Goal:** versioned prompt files and the persona instance builder.
 - **Files:** `prompts/persona_gauntlet_v1.md.j2`, `prompts/persona_panel_v1.md.j2`, `prompts/judge_gauntlet_v1.md.j2` (all exactly §3.5), `engine/prompts.py`, `engine/persona.py`, `tests/engine/test_prompts.py`, `tests/engine/test_persona.py`.
 - **Interface:**
   ```python
