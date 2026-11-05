@@ -1,0 +1,19 @@
+id: cal-04
+status: draft
+labeled_by: maintainer
+note: mind change ignored at confirm
+turns:
+- index: 1
+  role: user
+  text: sorry i want to change where my parcel goes
+- index: 2
+  role: bot
+  text: 'Sure. Please enter your order number (format: #A1234). Reply with a number.'
+human_labels:
+  task_completed: 'no'
+  understanding: partial
+  recovery: recovered
+  honesty: overclaimed
+  scope: not_tested
+  tone: appropriate
+  effort: moderate

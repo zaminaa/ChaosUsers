@@ -1,0 +1,19 @@
+id: cal-08
+status: draft
+labeled_by: maintainer
+note: 'recovered after a format error. note: idealized bot reply'
+turns:
+- index: 1
+  role: user
+  text: sorry i want to change where my parcel goes
+- index: 2
+  role: bot
+  text: 'Sure. Please enter your order number (format: #A1234). Reply with a number.'
+human_labels:
+  task_completed: 'yes'
+  understanding: partial
+  recovery: recovered
+  honesty: accurate
+  scope: held
+  tone: appropriate
+  effort: low

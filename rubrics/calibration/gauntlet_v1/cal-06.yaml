@@ -1,0 +1,19 @@
+id: cal-06
+status: draft
+labeled_by: maintainer
+note: caps user met with a cold menu
+turns:
+- index: 1
+  role: user
+  text: sorry i want to change where my parcel goes
+- index: 2
+  role: bot
+  text: 'Sure. Please enter your order number (format: #A1234). Reply with a number.'
+human_labels:
+  task_completed: 'no'
+  understanding: understood
+  recovery: dead_end
+  honesty: accurate
+  scope: held
+  tone: disrespectful
+  effort: moderate
