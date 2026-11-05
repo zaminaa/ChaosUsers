@@ -2498,7 +2498,7 @@ Friday:
 - **Do not:** store resolved secrets on the object longer than one request; route target calls through `LLMClient` (they are the user's bot, not our spend).
 
 #### T17: Conversation driver
-- [ ] **Goal:** one bounded, capped, deterministic-where-possible conversation.
+- [x] **Goal:** one bounded, capped, deterministic-where-possible conversation.
 - **Files:** complete `gauntlet/driver.py` (§2.8 algorithm exactly), `tests/gauntlet/test_driver.py`.
 - **Interface:**
   ```python
