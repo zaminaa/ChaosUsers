@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#ffffff"/>
+  <text x="48" y="80" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="28">{{ "PRE-PRODUCTION REPORT" if manifest.mode == "panel" else "FAILURE REPORT CARD" }}</text>
+  <text x="48" y="180" font-size="96" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif">{{ scores.grade or "UNGRADED" }}</text>
+  <text x="48" y="420" font-size="24" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif">{{ quote }}</text>
+  <text x="48" y="580" font-size="16" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif">ChaosUsers {{ manifest.chaosusers_version }} · pack {{ manifest.pack.id }}@{{ manifest.pack.version }} · rubric {{ manifest.rubric.id if manifest.rubric else "panel" }} · receipt {{ receipt[:4] }}…{{ receipt[-2:] }}{% if manifest.scripted %} · SCRIPTED{% elif manifest.replay_of %} · REPLAY{% endif %}</text>
+</svg>

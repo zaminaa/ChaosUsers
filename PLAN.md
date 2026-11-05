@@ -2697,7 +2697,7 @@ Friday:
 ### Phase E: Reports and the validation loop
 
 #### T26: Gauntlet HTML report and `report` command
-- [ ] **Goal:** a self-contained report following §6.3.
+- [x] **Goal:** a self-contained report following §6.3.
 - **Files:** `chaosusers/report/__init__.py`, `report/render.py`, `report/templates/base.html.j2`, `report/templates/gauntlet.html.j2`, modify `cli.py` (`report RUN_DIR`), `tests/report/test_gauntlet_report.py`.
 - **Interface:**
   ```python
@@ -2714,14 +2714,14 @@ Friday:
 - **Do not:** add JS or CDN CSS; compute any metric in templates (templates only display `scores.json` values).
 
 #### T27: Panel HTML report
-- [ ] **Goal:** the Pre-Production Report (§6.3).
+- [x] **Goal:** the Pre-Production Report (§6.3).
 - **Files:** `report/templates/panel.html.j2`, extend `report/render.py` (`render_panel_report`), `tests/report/test_panel_report.py`.
 - **Tests:** contains the summary line, a friction map entry for every section in order, `<mark>` around grounded quotes in the section text, the discarded-findings section, and "words read".
 - **Acceptance:** `uv run chaosusers report tmp-runs/<panel-id>` → `report.html` with the friction map.
 - **Do not:** highlight ungrounded quotes.
 
 #### T28: Share card and badge
-- [ ] **Goal:** `card.svg` (1200×630) and `badge.svg`, for both modes.
+- [x] **Goal:** `card.svg` (1200×630) and `badge.svg`, for both modes.
 - **Files:** `report/templates/card.svg.j2`, `report/templates/badge.svg.j2`, extend `render.py` (`render_card(run) -> str`, `render_badge(run) -> str`), `docs/assets/card-placeholder.svg` (a rendered card from the scripted run), `tests/report/test_card.py`.
 - **Tests:**
   - parses as XML (`xml.etree.ElementTree.fromstring`) with `width="1200" height="630"`

@@ -32,11 +32,21 @@ def main(argv: list[str] | None = None) -> int:
     _add_run_flags(gauntlet)
     gauntlet.add_argument("--target", default="demo")
     gauntlet.add_argument("--scenario", default="demo")
+    report = sub.add_parser("report")
+    report.add_argument("run_dir")
     panel = sub.add_parser("panel")
     panel.add_argument("artifact")
     panel.add_argument("--kind", dest="artifact_kind", choices=["page", "text", "botscript"], default=None)
     _add_run_flags(panel)
     args = parser.parse_args(argv)
+    if args.command == "report":
+        from pathlib import Path
+
+        from chaosusers.report.render import write_reports
+
+        write_reports(Path(args.run_dir))
+        print(f"Badge: ![chaosusers]({args.run_dir}/badge.svg)")
+        return 0
     if args.command == "panel":
         from chaosusers.config import ConfigError
         from chaosusers.panel.runner import plan_panel, run_panel

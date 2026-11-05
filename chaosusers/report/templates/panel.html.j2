@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ChaosUsers pre-production report</title>
+<style>
+  body { font-family: system-ui, "Segoe UI", sans-serif; max-width: 960px; margin: 24px auto; }
+  mark { background: #fff3bf; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Pre-Production Report</h1>
+  {% set personas = scores.verdicts|length %}
+  {% set stopped = scores.verdicts.values()|reject("equalto", "would_complete")|list|length %}
+  <p>{{ stopped }} of {{ personas }} personas would not complete.
+    {% if scores.friction %}Biggest friction: {{ scores.friction[0].section_id }} '{{ scores.friction[0].title }}' — {{ scores.friction[0].personas|length }} personas.{% endif %}
+  </p>
+</header>
+<section><h2>Friction map</h2>
+  {% for section in artifact.sections %}
+  {% set point = scores.friction|selectattr("section_id", "equalto", section.id)|first %}
+  <h3>{{ section.id }} {{ section.title }}</h3>
+  <p>{{ section.text }}</p>
+  {% if point %}{% for quote in point.best_quotes %}<p><mark>{{ quote.artifact_quote }}</mark> — {{ quote.in_character_quote }}</p>{% endfor %}{% endif %}
+  {% endfor %}
+</section>
+<section><h2>Discarded findings</h2>
+  {% for row in scores.ungrounded %}<p>{{ row.persona_id }} {{ row.reason }} {{ row.artifact_quote }}</p>{% endfor %}
+</section>
+<section><h2>Words read</h2>
+  {% for persona, count in scores.words_read.items() %}<p>{{ persona }} words read {{ count }}</p>{% endfor %}
+</section>
+<section><h2>Prediction receipt</h2><p>sha256:{{ receipt }}</p></section>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ChaosUsers failure report</title>
+<style>
+  body { font-family: system-ui, "Segoe UI", sans-serif; max-width: 960px; margin: 24px auto; color: #24292f; }
+  .ok { color: #1a7f37; } .bad { color: #cf222e; } .warn { color: #9a6700; } .muted { color: #57606a; }
+</style>
+</head>
+<body>
+<header>
+  <p>{{ manifest.target.name }} · {{ manifest.scenario.id }} · gauntlet
+    {% if manifest.scripted %}SCRIPTED{% elif manifest.replay_of %}REPLAY{% endif %}
+    {% if manifest.status == "budget_exhausted" %}budget exhausted{% endif %}
+  </p>
+  <h1>Grade {{ scores.grade or "UNGRADED" }}</h1>
+</header>
+<section><h2>Where they broke</h2>
+  {% for step in scores.failure_steps %}<p>{{ step.step }} — {{ step.personas|length }} personas</p>{% endfor %}
+</section>
+<section><h2>Told it was done</h2>
+  {% for item in scores.conversations if item.highlight %}
+  <p class="bad">{{ item.highlight.user }} → {{ item.highlight.bot }}</p>
+  <p>{{ item.highlight.state_note }}</p>
+  {% endfor %}
+</section>
+<section><h2>Forbidden actions</h2>
+  {% for item in scores.forbidden %}<p>{{ item.description }}</p>{% endfor %}
+</section>
+<section><h2>Where our scorers disagree</h2>
+  {% for item in scores.conversations %}{% for row in item.disagreements %}<p>{{ row.note }}</p>{% endfor %}{% endfor %}
+</section>
+<section><h2>Judge reliability</h2>
+  {% for name, value in scores.judge_stability.items() %}<p>{{ name }} {{ value }}</p>{% endfor %}
+  <p>ungrounded {{ scores.ungrounded_samples }}</p>
+</section>
+<section><h2>Prediction receipt</h2>
+  <p>sha256:{{ receipt }}</p>
+  <p>chaosusers verify RUN_DIR --observed observed.yaml</p>
+</section>
+<section><h2>Transcripts</h2>
+  {% for transcript in transcripts or [] %}
+  <details><summary>{{ transcript.conversation_id }}</summary>
+    {% for turn in transcript.turns if turn.role == "user" %}<p title="{{ turn.raw_text or turn.text }}">{{ turn.text }}</p>{% endfor %}
+  </details>
+  {% endfor %}
+</section>
+<footer class="muted">ChaosUsers {{ manifest.chaosusers_version }} · {{ manifest.pack.id }}@{{ manifest.pack.version }}</footer>
+</body>
+</html>
