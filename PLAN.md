@@ -2385,7 +2385,7 @@ Friday:
 - **Do not:** use the global `random` module; branch on persona id; put phrase lists in code (they come from the lexicon).
 
 #### T11: Patience machine and event detection
-- [ ] **Goal:** deterministic frustration and abandonment.
+- [x] **Goal:** deterministic frustration and abandonment.
 - **Files:** `engine/state.py`, `engine/events.py`, `tests/engine/test_state.py`, `tests/engine/test_events.py`. A minimal `Scenario` for the tests is built inline as a dict, since T13 isn't done yet: define `events.detect_events` to accept `fallback_patterns: list[str]` and `facts: dict[str, FactSpec]` instead of a Scenario object. **Use this signature:**
   ```python
   def detect_events(bot_text: str, prior_bot_texts: list[str], prior_user_texts: list[str],
