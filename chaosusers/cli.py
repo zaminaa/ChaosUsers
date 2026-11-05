@@ -28,7 +28,32 @@ def main(argv: list[str] | None = None) -> int:
     show.add_argument("--pack", default="core-en")
     demo_bot = sub.add_parser("demo-bot")
     demo_bot.add_argument("--port", type=int, default=8787)
+    gauntlet = sub.add_parser("gauntlet")
+    _add_run_flags(gauntlet)
+    gauntlet.add_argument("--target", default="demo")
+    gauntlet.add_argument("--scenario", default="demo")
     args = parser.parse_args(argv)
+    if args.command == "gauntlet":
+        from chaosusers.config import ConfigError
+        from chaosusers.gauntlet.runner import plan_gauntlet, run_gauntlet
+
+        try:
+            cfg = _run_config(args, "gauntlet")
+        except ConfigError as exc:
+            print(exc, file=sys.stderr)
+            return 2
+        if cfg.dry_run:
+            planned = plan_gauntlet(cfg)
+            print(f"Worst-case cost: ${planned['worst_case_usd']:.2f} (cap ${cfg.max_usd:.2f})")
+            print(f"personas: {', '.join(planned['personas'])}")
+            print(f"conversations: {planned['conversations']}  max LLM calls: {planned['max_llm_calls']}")
+            return 0
+        try:
+            path = run_gauntlet(cfg)
+        except ConfigError as exc:
+            print(exc, file=sys.stderr)
+            return 2
+        return _finish(path, cfg)
     if args.command == "demo-bot":
         from chaosusers.demo.server import serve
 
@@ -61,6 +86,73 @@ def _packs(args: argparse.Namespace) -> int:
     if persona is None:
         raise PackError(f"unknown persona {args.persona_id}")
     print(yaml.safe_dump(persona.model_dump(mode="json"), sort_keys=False, allow_unicode=True).rstrip())
+    return 0
+
+
+def _add_run_flags(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument("--pack", default="core-en")
+    parser.add_argument("--personas", default=None)
+    parser.add_argument("--repeats", type=int, default=2)
+    parser.add_argument("--judge-samples", type=int, default=3)
+    parser.add_argument("--max-usd", type=float, default=1.0)
+    parser.add_argument("--max-tokens", type=int, default=400_000)
+    parser.add_argument("--max-turns", type=int, default=12)
+    parser.add_argument("--concurrency", type=int, default=4)
+    parser.add_argument("--provider", default=None)
+    parser.add_argument("--model", default=None)
+    parser.add_argument("--judge-model", default=None)
+    parser.add_argument("--base-url", default=None)
+    parser.add_argument("--allow-unpriced", action="store_true")
+    parser.add_argument("--seed", type=int, default=1234)
+    parser.add_argument("--replay", default=None)
+    parser.add_argument("--script", default=None)
+    parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--fail-under", choices=["A", "B", "C", "D"], default=None)
+    parser.add_argument("--out", default="chaosusers-runs")
+    parser.add_argument("--open", action="store_true")
+
+
+def _run_config(args: argparse.Namespace, mode: str):
+    from pathlib import Path
+
+    from chaosusers.config import RunConfig
+
+    return RunConfig(
+        mode=mode,
+        pack=args.pack,
+        personas=args.personas.split(",") if args.personas else None,
+        repeats=args.repeats,
+        judge_samples=args.judge_samples,
+        max_usd=args.max_usd,
+        max_tokens=args.max_tokens,
+        max_turns=args.max_turns,
+        concurrency=args.concurrency,
+        seed=args.seed,
+        provider=args.provider,
+        model=args.model,
+        judge_model=args.judge_model,
+        base_url=args.base_url,
+        allow_unpriced=args.allow_unpriced,
+        replay=Path(args.replay) if args.replay else None,
+        script=Path(args.script) if args.script else None,
+        out_dir=Path(args.out),
+        target=getattr(args, "target", None),
+        scenario=getattr(args, "scenario", None),
+        artifact=getattr(args, "artifact", None),
+        fail_under=args.fail_under,
+        dry_run=args.dry_run,
+        open_report=args.open,
+    )
+
+
+def _finish(path, cfg) -> int:
+    import json
+
+    scores = json.loads((path / "scores.json").read_text(encoding="utf-8"))
+    grade = scores.get("grade")
+    order = ["A", "B", "C", "D", "F"]
+    if cfg.fail_under and (grade is None or order.index(grade) > order.index(cfg.fail_under)):
+        return 1
     return 0
 
 

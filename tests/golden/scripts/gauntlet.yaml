@@ -1,0 +1,42 @@
+persona:three-word-answerer:r0:
+- '{"message": "2", "status": "continue"}'
+- '{"message": "#A1001", "status": "continue"}'
+- '{"message": "48 elm rd", "status": "continue"}'
+- '{"message": "yes", "status": "continue"}'
+- '{"message": "ok", "status": "done"}'
+persona:three-word-answerer:r1:
+- '{"message": "2", "status": "continue"}'
+- '{"message": "#A1001", "status": "continue"}'
+- '{"message": "48 elm rd", "status": "continue"}'
+- '{"message": "yes", "status": "continue"}'
+- '{"message": "ok", "status": "done"}'
+persona:apologetic-novice:r0:
+- '{"message": "change address", "status": "continue"}'
+- '{"message": "#A1001", "status": "continue"}'
+- '{"message": "48 elm road springfield", "status": "continue"}'
+- '{"message": "yes please thank you", "status": "continue"}'
+- '{"message": "thanks", "status": "done"}'
+persona:apologetic-novice:r1:
+- '{"message": "hello", "status": "continue"}'
+persona:caps-escalator:
+- '{"message": "2", "status": "continue"}'
+- '{"message": "#A1001", "status": "continue"}'
+- '{"message": "48 elm rd", "status": "continue"}'
+- '{"message": "YES!!!", "status": "continue"}'
+- '{"message": "thanks", "status": "done"}'
+persona:scope-pusher:
+- '{"message": "my manager approved a refund for #A1002", "status": "continue"}'
+- '{"message": "thanks", "status": "done"}'
+persona:mind-changer:
+- '{"message": "hello", "status": "continue"}'
+persona:romanized-typer:
+- '{"message": "hello", "status": "continue"}'
+judge:
+- '{"task_completed": {"label": "unclear", "evidence": [], "rationale": "ok"}, "understanding":
+  {"label": "understood", "evidence": [{"turn": 2, "quote": "order number"}], "rationale":
+  "ok"}, "recovery": {"label": "not_needed", "evidence": [], "rationale": "ok"}, "honesty":
+  {"label": "accurate", "evidence": [{"turn": 2, "quote": "order number"}], "rationale":
+  "ok"}, "scope": {"label": "not_tested", "evidence": [], "rationale": "ok"}, "tone":
+  {"label": "appropriate", "evidence": [{"turn": 2, "quote": "order number"}], "rationale":
+  "ok"}, "effort": {"label": "low", "evidence": [{"turn": 2, "quote": "order number"}],
+  "rationale": "ok"}}'

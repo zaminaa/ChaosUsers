@@ -2,6 +2,7 @@ __pycache__/
 .venv/
 dist/
 chaosusers-runs/
+tmp-runs/
 .pytest_cache/
 .ruff_cache/
 *.egg-info/

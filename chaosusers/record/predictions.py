@@ -1,5 +1,6 @@
 import hashlib
 import json
+from datetime import UTC, datetime
 
 from pydantic import BaseModel
 
@@ -85,7 +86,9 @@ def predictions_from_gauntlet(scores: GauntletScores, scenario, pack: Pack, taxo
     ordered = [item for _rank, _support, item in sorted(drafts, key=lambda row: (row[0], row[1]))][:10]
     for index, item in enumerate(ordered, start=1):
         item.id = f"P-{index:03d}"
-    return PredictionSet(run_id=run_id, created_at="", mode="gauntlet", subject=subject, predictions=ordered)
+    return PredictionSet(
+        run_id=run_id, created_at=datetime.now(UTC).isoformat(), mode="gauntlet", subject=subject, predictions=ordered
+    )
 
 
 def predictions_from_panel(scores, artifact, pack, run_id) -> PredictionSet:

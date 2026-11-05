@@ -2589,7 +2589,7 @@ Friday:
 - **Do not:** generate rate predictions ("X% of users"); let an LLM write predictions.
 
 #### T21: Gauntlet runner and CLI
-- [ ] **Goal:** `chaosusers gauntlet ...` end to end, with dry-run, live progress, caps, and `--fail-under`.
+- [x] **Goal:** `chaosusers gauntlet ...` end to end, with dry-run, live progress, caps, and `--fail-under`.
 - **Files:** `gauntlet/runner.py`, modify `cli.py`, `tests/gauntlet/test_runner.py`, `tests/golden/scripts/gauntlet.yaml` (scripted personas per §6.6, with the judge JSON valid against §4.4 and quoting real AcmeBot strings).
 - **Interface:**
   ```python
