@@ -2465,7 +2465,7 @@ Friday:
 - **Do not:** "fix" the planted bugs; use an LLM; share state across sessions.
 
 #### T15: Checks library and outcome classification
-- [ ] **Goal:** deterministic layer 0 and the outcome taxonomy.
+- [x] **Goal:** deterministic layer 0 and the outcome taxonomy.
 - **Files:** `gauntlet/checks.py`, `gauntlet/score.py` (classification part only), `tests/gauntlet/test_checks.py`, `tests/gauntlet/test_outcome.py`. `Transcript` and `Turn` are needed; create them now in `gauntlet/driver.py` (models only, §2.8).
 - **Interface:** `evaluate_checks(scenario, transcript) -> list[CheckResult]` (§4.1), `get_path(state, path)`, `classify_outcome(transcript, checks, scenario) -> tuple[Outcome, str | None]` (§4.2, returns outcome and failure_step).
 - **Tests:**
