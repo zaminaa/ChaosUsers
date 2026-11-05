@@ -2257,7 +2257,7 @@ Friday:
 - **Do not:** use regex `\{.*\}` greedy matching (it breaks on trailing braces); call `eval`.
 
 #### T03: Pricing and budget
-- [ ] **Goal:** caps that can never be exceeded, even under concurrency.
+- [x] **Goal:** caps that can never be exceeded, even under concurrency.
 - **Files:** `chaosusers/pricing.yaml` (§2.4 exactly), `llm/budget.py`, `tests/llm/test_budget.py`.
 - **Interface:** §2.4 `estimate_tokens`, `Pricing`, `Budget`, `BudgetExceeded`.
 - **Tests:**
