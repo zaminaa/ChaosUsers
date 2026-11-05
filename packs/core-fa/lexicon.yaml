@@ -1,0 +1,5 @@
+language: fa
+apology_phrases: ["ببخشید", "شرمنده", "ببخشید اگه اشتباه می‌کنم"]
+examples_by_language:
+  fa-Latn: ["salam, ye soal dashtam", "mersi", "bale", "yani chi?", "lotfan zoodtar"]
+  fa: ["سلام، یه سوال داشتم", "ممنون", "بله", "یعنی چی؟", "لطفاً زودتر"]

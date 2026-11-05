@@ -1,0 +1,7 @@
+id: caps-escalator
+language: fa
+voice:
+  typical_phrases: ["مسخره‌ست", "گفتم دیگه", "یه آدم بیار"]
+  example_utterance: "شماره سفارش رو دادم. یه آدم بیار."
+fidelity:
+  require_script: Arabic

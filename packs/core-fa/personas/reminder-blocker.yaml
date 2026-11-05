@@ -1,0 +1,7 @@
+id: reminder-blocker
+language: fa
+voice:
+  typical_phrases: ["خاموشش کن", "شماره نمی‌دم", "لغو"]
+  example_utterance: "یادآوری واتساپ از قبل تیک خورده؟ نه."
+fidelity:
+  require_script: Arabic

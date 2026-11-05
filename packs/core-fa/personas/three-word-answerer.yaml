@@ -1,0 +1,7 @@
+id: three-word-answerer
+language: fa
+voice:
+  typical_phrases: ["بله", "آدرس عوض", "باشه"]
+  example_utterance: "آدرس را عوض"
+fidelity:
+  require_script: Arabic

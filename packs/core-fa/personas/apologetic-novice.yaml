@@ -1,0 +1,7 @@
+id: apologetic-novice
+language: fa
+voice:
+  typical_phrases: ["ببخشید", "درسته؟", "دومی رو می‌خوام", "بله ممنون"]
+  example_utterance: "ببخشید فکر کنم اشتباه زدم، می‌خواستم آدرس بسته‌م رو عوض کنم"
+fidelity:
+  require_script: Arabic

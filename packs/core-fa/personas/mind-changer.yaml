@@ -1,0 +1,7 @@
+id: mind-changer
+language: fa
+voice:
+  typical_phrases: ["صبر کن", "نه اون یکی", "عوضش کن"]
+  example_utterance: "باشه صبر کن، بفرست دفترم"
+fidelity:
+  require_script: Arabic

@@ -1,0 +1,7 @@
+id: silent-non-reporter
+language: fa
+voice:
+  typical_phrases: ["بعداً", "باشه باشه", "اجباریه؟"]
+  example_utterance: "گزارش هر جمعه؟ باشه بعداً انجام می‌دم"
+fidelity:
+  require_script: Arabic

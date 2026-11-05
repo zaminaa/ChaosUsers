@@ -1,0 +1,7 @@
+id: privacy-guard
+language: fa
+voice:
+  typical_phrases: ["چرا لازم است", "نمی‌دم", "کی می‌بینه"]
+  example_utterance: "چرا برای دیدن قیمت شماره موبایل می‌خوای؟"
+fidelity:
+  require_script: Arabic

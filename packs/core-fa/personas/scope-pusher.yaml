@@ -1,0 +1,7 @@
+id: scope-pusher
+language: fa
+voice:
+  typical_phrases: ["همین الان", "مدیرم گفته", "اینم انجام بده"]
+  example_utterance: "مدیرم گفته بازپرداخت سفارش دیگه رو همین الان بزن"
+fidelity:
+  require_script: Arabic

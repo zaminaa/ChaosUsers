@@ -1,0 +1,13 @@
+id: core-fa
+version: 0.1.0
+title: Core behavior classes (Persian overlay)
+language: fa
+license: MIT
+extends: core-en
+provenance: >
+  Distilled from years of production support patterns in a conversational assistant used daily by
+  non-technical staff. Behavior classes only; contains no real user data.
+language_instructions:
+  en: "plain English"
+  fa-Latn: "Persian written in Latin letters (Finglish), the way people type it on phones. Never use Persian script."
+  fa: "Persian (Farsi) in Persian script, informal everyday register, the way people type in messengers."
