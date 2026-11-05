@@ -32,7 +32,31 @@ def main(argv: list[str] | None = None) -> int:
     _add_run_flags(gauntlet)
     gauntlet.add_argument("--target", default="demo")
     gauntlet.add_argument("--scenario", default="demo")
+    panel = sub.add_parser("panel")
+    panel.add_argument("artifact")
+    panel.add_argument("--kind", dest="artifact_kind", choices=["page", "text", "botscript"], default=None)
+    _add_run_flags(panel)
     args = parser.parse_args(argv)
+    if args.command == "panel":
+        from chaosusers.config import ConfigError
+        from chaosusers.panel.runner import plan_panel, run_panel
+
+        try:
+            cfg = _run_config(args, "panel")
+        except ConfigError as exc:
+            print(exc, file=sys.stderr)
+            return 2
+        if cfg.dry_run:
+            planned = plan_panel(cfg)
+            print(f"Sections: {planned['sections']}")
+            print(f"Worst-case cost: ${planned['worst_case_usd']:.2f} (cap ${cfg.max_usd:.2f})")
+            return 0
+        try:
+            path = run_panel(cfg)
+        except ConfigError as exc:
+            print(exc, file=sys.stderr)
+            return 2
+        return _finish(path, cfg)
     if args.command == "gauntlet":
         from chaosusers.config import ConfigError
         from chaosusers.gauntlet.runner import plan_gauntlet, run_gauntlet

@@ -1,5 +1,4 @@
 import hashlib
-import re
 from collections import Counter
 
 import yaml
@@ -10,11 +9,7 @@ from chaosusers.gauntlet.driver import Transcript
 from chaosusers.llm.client import LLMClient, LLMOutputError
 from chaosusers.llm.types import LLMRequest, Message
 from chaosusers.paths import data_root
-
-
-def normalize(text: str) -> str:
-    collapsed = re.sub(r"\s+", " ", text.lower()).strip()
-    return collapsed.strip("\"'`.,;:!?()[]")
+from chaosusers.textutil import normalize
 
 
 class LabelSpec(BaseModel):

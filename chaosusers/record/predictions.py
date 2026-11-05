@@ -91,8 +91,32 @@ def predictions_from_gauntlet(scores: GauntletScores, scenario, pack: Pack, taxo
     )
 
 
-def predictions_from_panel(scores, artifact, pack, run_id) -> PredictionSet:
-    raise NotImplementedError
+def predictions_from_panel(scores, artifact, pack, run_id: str) -> PredictionSet:
+    drafts = []
+    for point in scores.get("friction") or []:
+        if len(point["stable_personas"]) >= 3 or len(point["personas"]) >= 4:
+            drafts.append(Prediction(
+                id="", kind="location", step_id=point["section_id"], top_k=3, confidence="medium",
+                claim=f"Section {point['section_id']} ('{point['title']}') will be a top-3 drop-off point.",
+                check_hint="Rank production drop-off by section and confirm this one is in the top 3.",
+                support=f"{len(point['personas'])} personas",
+                evidence=[f"{persona}@{point['section_id']}" for persona in point["personas"]],
+            ))
+        if point["types"].get("misunderstood", 0) >= 2:
+            quote = point["best_quotes"][0]["artifact_quote"] if point["best_quotes"] else point["title"]
+            drafts.append(Prediction(
+                id="", kind="occurs", failure_type="misread", step_id=point["section_id"], confidence="medium",
+                claim=f"Real users will misread '{quote}'.",
+                check_hint="Search support tickets, session recordings or user interviews for confusion about this text.",
+                support=f"{point['types'].get('misunderstood', 0)} misunderstood findings",
+                evidence=[f"{quote_row['persona_id']}@{point['section_id']}" for quote_row in point["best_quotes"]],
+            ))
+    for index, item in enumerate(drafts[:10], start=1):
+        item.id = f"P-{index:03d}"
+    return PredictionSet(
+        run_id=run_id, created_at=datetime.now(UTC).isoformat(), mode="panel",
+        subject=getattr(artifact, "source", ""), predictions=drafts[:10],
+    )
 
 
 def _failed_only_at(scores: GauntletScores, persona: str, step: str) -> bool:

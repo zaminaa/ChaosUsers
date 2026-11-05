@@ -1,0 +1,6 @@
+default:
+- '{"verdict": "would_abandon", "abandon_at": "S1", "first_impression": "Too many
+  words before the button.", "findings": [{"section_id": "S1", "type": "confused",
+  "artifact_quote": "unifies multi-carrier fulfilment", "in_character_quote": "what
+  does fulfilment even mean", "explanation": "Jargon in the first sentence.", "severity":
+  2}]}'

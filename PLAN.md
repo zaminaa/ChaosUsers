@@ -2661,7 +2661,7 @@ Friday:
 - **Do not:** add BeautifulSoup/lxml/playwright; execute JS; follow non-http schemes (`file://` URLs are rejected; local files are passed as paths).
 
 #### T24: Panel runner, grounding, aggregation, predictions, CLI
-- [ ] **Goal:** `chaosusers panel ARTIFACT` end to end.
+- [x] **Goal:** `chaosusers panel ARTIFACT` end to end.
 - **Files:** `panel/grounding.py`, `panel/aggregate.py`, `panel/runner.py`, complete `predictions_from_panel` in `record/predictions.py`, modify `cli.py`, `tests/panel/test_grounding.py`, `tests/panel/test_aggregate.py`, `tests/panel/test_runner.py`, `tests/golden/scripts/panel.yaml`.
 - **Interface:**
   ```python
@@ -2688,7 +2688,7 @@ Friday:
 - **Do not:** add a judge to Panel mode; count ungrounded findings in friction scores; show the persona sections it didn't read.
 
 #### T25: Panel artifact review pass
-- [ ] **Goal:** make sure the demo landing page is believable and that every planted flaw is reachable through each persona's reading filter.
+- [x] **Goal:** make sure the demo landing page is believable and that every planted flaw is reachable through each persona's reading filter. The landing page is a static SaaS page with inline CSS and the planted flaws from the plan.
 - **Files:** possibly modify `examples/artifacts/acme-landing.html`; `tests/panel/test_demo_artifact.py`.
 - **Tests:** for each panel persona, the phrase tied to their planted flaw in §5.3 appears in that persona's `visible_text` for the relevant section. For example, Tess (skim 12) still sees `[BUTTON: Get started]`; Bo (skim 40) sees `[CHECKBOX pre-ticked: …]`; Sam (skim 60) sees "weekly shipment report".
 - **Acceptance:** `uv run pytest -q tests/panel` → all pass; opening the HTML in a browser shows a clean, believable page (state this in the commit message).
