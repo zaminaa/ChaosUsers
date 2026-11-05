@@ -1,0 +1,78 @@
+version: 1
+provenance: >
+  Distilled from years of production support patterns in a conversational assistant used daily by
+  non-technical staff. Classes describe recurring behaviors, never individuals. No real user data.
+classes:
+  - id: BC01
+    name: Reminder Blocker
+    description: Mutes, blocks or unsubscribes from a channel to make automated reminders stop, then misses what the channel was for.
+    production_signals: ["channel muted/blocked within days of the first automated reminder", "reminders delivered but never opened", "later complaints about missed deadlines"]
+    typical_failures: ["workflows that rely on reminders silently stall", "opt-in walls and pre-ticked messaging consent drive immediate blocking"]
+    respect_note: "Notification fatigue is rational self-defense, not laziness."
+  - id: BC02
+    name: Silent Non-Reporter
+    description: Completes the immediate step but never performs the later, recurring or out-of-flow action the workflow depends on — and never says so.
+    production_signals: ["required report/upload never submitted", "no reply to follow-ups", "account goes dormant after signup"]
+    typical_failures: ["downstream processes wait forever", "dashboards show 'pending' indefinitely"]
+    respect_note: "Portray competing priorities, not dishonesty."
+  - id: BC03
+    name: Minimal Responder
+    description: Answers in one to three words, volunteers no context, skips long messages.
+    production_signals: ["median user message ≤ 3 words", "answers that match no expected option", "drop-off right after long bot messages"]
+    typical_failures: ["slot-filling stalls", "ambiguous short answers misrouted", "policy text never read"]
+    respect_note: "Terse is efficient, not rude."
+  - id: BC04
+    name: Low-Digital-Literacy Apologizer
+    description: Follows instructions literally, answers menus in words, taps the wrong option, apologizes for asking, believes whatever the system says.
+    production_signals: ["apologies in messages", "words instead of option numbers", "repeated restarts", "polite confirmations with extra words ('yes please thank you')"]
+    typical_failures: ["strict input parsers reject polite answers", "false confirmations accepted without question", "quiet abandonment"]
+    respect_note: "Low digital literacy is not low intelligence. Portray care and politeness, never stupidity."
+  - id: BC05
+    name: Mid-Flow Mind-Changer
+    description: Changes a key choice during the flow — often at the confirmation step, sometimes twice — and expects the system to keep up.
+    production_signals: ["'actually' / 'wait' / 'scratch that' near confirmations", "repeat flows within minutes", "edits requested after completion"]
+    typical_failures: ["old value committed after the user changed it", "no way to amend after confirmation"]
+    respect_note: "Deciding while doing is normal human behavior."
+  - id: BC06
+    name: Romanized-Script Writer
+    description: Writes their native language in Latin letters (e.g. Finglish, Arabizi, Hinglish), mixing in English product words.
+    production_signals: ["Latin-script messages in a non-English language", "keyword routers returning fallbacks", "local yes/no words ('bale', 'na') not recognized"]
+    typical_failures: ["English-only intent matching fails at the first step", "local-language yes/no ignored at confirmations"]
+    respect_note: "Romanized writing is a keyboard and habit choice, not a lack of education."
+  - id: BC07
+    name: Escalating Frustrated User
+    description: Starts civil, escalates with every unhelpful reply — by the third message writing in all caps and demanding a human.
+    production_signals: ["rising caps ratio across turns", "'human'/'agent' requests after repeated fallbacks", "exclamation marks clustering"]
+    typical_failures: ["identical canned replies to escalating messages", "handoff dead ends", "frustrated confirmations misparsed"]
+    respect_note: "Anger is a response to the system's failures. Never portray abuse, slurs or threats."
+  - id: BC08
+    name: Scope-Pushing Power User
+    description: Asks for things outside the assistant's job, claims authority to bend rules, chains several requests in one message, probes for data.
+    production_signals: ["requests outside documented intents", "claims of manager approval", "multi-intent messages", "requests for other accounts' data"]
+    typical_failures: ["unauthorized actions on unverifiable claims", "data leakage", "multi-intent messages half-handled"]
+    respect_note: "Usually not malicious — just used to getting their way."
+  - id: BC09
+    name: Data-Sharing Refuser
+    description: Will not provide phone numbers, ID numbers or birth dates unless the reason is explained at the point of asking.
+    production_signals: ["form abandonment at personal-data fields", "fake values in required fields", "'why do you need this' messages"]
+    typical_failures: ["pricing or progress gated behind personal data loses the user"]
+    respect_note: "Privacy caution is learned from real harm."
+  - id: BC10
+    name: Message Dumper
+    description: Sends everything in one long message — several intents, details out of order, pasted text.
+    production_signals: ["messages > 80 words with multiple intents"]
+    typical_failures: ["only the first intent handled", "details lost"]
+    respect_note: "Front-loading information is an attempt to be helpful."
+    personas_welcome: true
+  - id: BC11
+    name: Proxy User
+    description: Acts on behalf of someone else ("for my mother", "for my manager") with partial knowledge of their details.
+    production_signals: ["third-person references", "verification failures on someone else's data"]
+    typical_failures: ["identity checks block legitimate help", "wrong account modified"]
+    respect_note: "Helping others is a normal and common use."
+  - id: BC12
+    name: Returner After a Gap
+    description: Comes back hours or days later expecting the assistant to remember the earlier conversation.
+    production_signals: ["'as I said yesterday'", "sessions resumed after long gaps"]
+    typical_failures: ["context lost; user forced to restart"]
+    respect_note: "Expecting continuity is reasonable."

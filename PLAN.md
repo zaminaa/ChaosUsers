@@ -2319,7 +2319,7 @@ Friday:
 ### Phase B: Personas
 
 #### T07: Pack schema and taxonomy
-- [ ] **Goal:** typed models for packs and the taxonomy file.
+- [x] **Goal:** typed models for packs and the taxonomy file.
 - **Files:** `chaosusers/packs/__init__.py`, `packs/schema.py` (§2.6 exactly), `packs/taxonomy.yaml` (§3.1 exactly), `tests/packs/test_schema.py`.
 - **Tests:**
   - the §2.5 example persona validates
