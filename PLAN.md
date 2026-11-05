@@ -2443,7 +2443,7 @@ Friday:
 - **Do not:** hardcode step ids in Python.
 
 #### T14: AcmeBot demo target
-- [ ] **Goal:** the deterministic demo bot with its exact strings and planted bugs.
+- [x] **Goal:** the deterministic demo bot with its exact strings and planted bugs.
 - **Files:** `chaosusers/demo/__init__.py`, `demo/acmebot.py`, `demo/server.py`, `tests/demo/test_acmebot.py`.
 - **Interface:** §5.1. `create_target()` returns `PythonTarget`, so define `PythonTarget` minimally here **inside `gauntlet/targets.py`** (create the file with only `TargetReply`, `Target`, and `PythonTarget`; T16 adds the rest). `PythonTarget(name, bot, has_state=True)`: `send` calls `bot.handle(session_id, message)["reply"]`; `state` calls `bot.state(session_id)`; `start` is a no-op (sessions are created lazily).
 - **Tests (one per rule):**

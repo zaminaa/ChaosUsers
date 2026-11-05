@@ -26,7 +26,14 @@ def main(argv: list[str] | None = None) -> int:
     show = packs_sub.add_parser("show")
     show.add_argument("persona_id")
     show.add_argument("--pack", default="core-en")
+    demo_bot = sub.add_parser("demo-bot")
+    demo_bot.add_argument("--port", type=int, default=8787)
     args = parser.parse_args(argv)
+    if args.command == "demo-bot":
+        from chaosusers.demo.server import serve
+
+        serve(args.port)
+        return 0
     if args.command == "packs":
         try:
             return _packs(args)
