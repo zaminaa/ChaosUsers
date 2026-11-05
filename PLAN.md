@@ -2331,7 +2331,7 @@ Friday:
 - **Do not:** add fields not in §2.6; make `behavior_class` optional.
 
 #### T08: Pack loader, overlays, validation, `packs` CLI
-- [ ] **Goal:** load packs by id or path, merge overlays, validate everything, and expose `chaosusers packs list|validate|show`.
+- [x] **Goal:** load packs by id or path, merge overlays, validate everything, and expose `chaosusers packs list|validate|show`.
 - **Files:** `packs/loader.py`, modify `cli.py`, `tests/packs/test_loader.py`, `tests/fixtures/packs/{base,overlay,bad-class,bad-pii}/...` (minimal packs).
 - **Interface:**
   ```python

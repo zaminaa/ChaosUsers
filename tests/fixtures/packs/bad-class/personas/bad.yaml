@@ -1,0 +1,28 @@
+id: bad
+name: Tess
+archetype: Tiny
+behavior_class: BC99
+language: en
+summary: Answers in a few words.
+trust_in_bot: normal
+voice:
+  register: terse
+  vocabulary_level: everyday
+  typical_phrases: ["yes"]
+  never: []
+  example_utterance: keep
+modes: [gauntlet]
+gauntlet:
+  reading_budget_words: 25
+  fact_drift: 0.5
+  patience:
+    start: 6
+    costs: {}
+    recovery: {}
+    frustrated_below: 3
+    angry_below: 1.5
+  operators: []
+fidelity:
+  max_words: null
+  require_script: any
+  forbidden_words: []

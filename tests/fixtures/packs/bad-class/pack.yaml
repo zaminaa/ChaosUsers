@@ -1,0 +1,11 @@
+id: bad-class
+version: 0.1.0
+title: Bad class
+language: en
+license: MIT
+extends: null
+provenance: >
+  Distilled from years of production support patterns in a conversational assistant
+  used daily by non-technical staff. Behavior classes only; contains no real user data.
+language_instructions:
+  en: plain English
