@@ -26,12 +26,22 @@ def main(argv: list[str] | None = None) -> int:
     show = packs_sub.add_parser("show")
     show.add_argument("persona_id")
     show.add_argument("--pack", default="core-en")
+    demo = sub.add_parser("demo")
+    demo.add_argument("which", nargs="?", choices=["gauntlet", "panel"], default="gauntlet")
+    demo.add_argument("--no-open", action="store_true")
+    demo.add_argument("--pace", type=float, default=0.0)
+    demo.add_argument("--out", default="chaosusers-runs")
     demo_bot = sub.add_parser("demo-bot")
     demo_bot.add_argument("--port", type=int, default=8787)
     gauntlet = sub.add_parser("gauntlet")
     _add_run_flags(gauntlet)
     gauntlet.add_argument("--target", default="demo")
     gauntlet.add_argument("--scenario", default="demo")
+    calibrate = sub.add_parser("calibrate")
+    calibrate.add_argument("--rubric", default="gauntlet_v1")
+    calibrate.add_argument("--script", required=True)
+    calibrate.add_argument("--judge-model", default="gpt-4.1-mini")
+    calibrate.add_argument("--samples", type=int, default=1)
     verify = sub.add_parser("verify")
     verify.add_argument("run_dir")
     verify.add_argument("--observed", required=True)
@@ -42,6 +52,26 @@ def main(argv: list[str] | None = None) -> int:
     panel.add_argument("--kind", dest="artifact_kind", choices=["page", "text", "botscript"], default=None)
     _add_run_flags(panel)
     args = parser.parse_args(argv)
+    if args.command == "calibrate":
+        from pathlib import Path
+
+        from chaosusers.llm.budget import Budget
+        from chaosusers.llm.client import LLMClient
+        from chaosusers.llm.testing import ScriptedProvider
+        from chaosusers.record.calibrate import calibrate
+
+        result = calibrate(
+            args.rubric,
+            LLMClient(ScriptedProvider.from_yaml(Path(args.script)), Budget(1, 400_000, 0, 0), None),
+            args.judge_model,
+            args.samples,
+        )
+        for dim, score in result["per_dim"].items():
+            print(f"{dim:<20} {score:.2f}")
+        print(result)
+        return 0
+    if args.command == "demo":
+        return _demo(args)
     if args.command == "verify":
         import json
         from pathlib import Path
@@ -152,6 +182,55 @@ def _packs(args: argparse.Namespace) -> int:
     if persona is None:
         raise PackError(f"unknown persona {args.persona_id}")
     print(yaml.safe_dump(persona.model_dump(mode="json"), sort_keys=False, allow_unicode=True).rstrip())
+    return 0
+
+
+def _demo(args: argparse.Namespace) -> int:
+    import json
+    import time
+    from pathlib import Path
+
+    from chaosusers.config import RunConfig
+    from chaosusers.paths import data_root, resolve_data_path
+
+    name = "demo-gauntlet" if args.which == "gauntlet" else "demo-panel"
+    meta = json.loads((data_root() / "cassettes" / f"{name}.meta.json").read_text(encoding="utf-8"))
+    cassette = data_root() / "cassettes" / f"{name}.jsonl"
+    scripted = bool(meta.get("scripted"))
+    label = "SCRIPTED DEMO (not a real model run)" if scripted else f"REPLAY of a run recorded {meta.get('recorded_at')} with {meta.get('model')} ($0, no API key)"
+    print(f"ChaosUsers 0.1.0 · {args.which} · {label}")
+
+    def progress(line: str) -> None:
+        print(line)
+        if args.pace:
+            time.sleep(args.pace)
+
+    cfg = RunConfig(
+        mode="gauntlet" if args.which == "gauntlet" else "panel",
+        replay=cassette,
+        script=Path("scripted") if scripted else None,
+        seed=meta.get("seed", 33),
+        repeats=meta.get("repeats", 2),
+        judge_samples=meta.get("judge_samples", 1),
+        max_turns=meta.get("max_turns", 5),
+        model=meta.get("model"),
+        judge_model=meta.get("judge_model"),
+        out_dir=Path(args.out),
+        target="demo",
+        scenario="demo",
+        artifact=str(resolve_data_path("examples/artifacts/acme-landing.html")),
+        concurrency=1,
+    )
+    if args.which == "gauntlet":
+        from chaosusers.gauntlet.runner import run_gauntlet
+
+        path = run_gauntlet(cfg, progress)
+    else:
+        from chaosusers.panel.runner import run_panel
+
+        path = run_panel(cfg, progress)
+    if not args.no_open:
+        print(f"Open {path / 'report.html'}")
     return 0
 
 

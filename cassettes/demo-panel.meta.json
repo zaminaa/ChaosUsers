@@ -1,0 +1,12 @@
+{
+  "recorded_at": "2026-11-05",
+  "provider": "script",
+  "model": "gpt-4.1-mini",
+  "judge_model": null,
+  "seed": 33,
+  "repeats": 2,
+  "judge_samples": 0,
+  "max_turns": 5,
+  "chaosusers_version": "0.1.0",
+  "scripted": true
+}
