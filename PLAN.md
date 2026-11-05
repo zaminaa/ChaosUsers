@@ -2285,7 +2285,7 @@ Friday:
 - **Do not:** import `openai` or `anthropic` packages; log API keys; set `response_format`.
 
 #### T05: Free providers and the metered client
-- [ ] **Goal:** the single choke point for every LLM call, plus scripted and replay providers.
+- [x] **Goal:** the single choke point for every LLM call, plus scripted and replay providers.
 - **Files:** `llm/testing.py`, `llm/client.py`, `tests/llm/test_client.py`, `tests/llm/test_testing.py`.
 - **Interface:** §2.4 `ScriptedProvider`, `ReplayProvider`, `CassetteMiss`, `LLMClient.complete/complete_json`, `LLMOutputError`. The call-log line format is exactly as in §2.4.
 - **Tests:**
