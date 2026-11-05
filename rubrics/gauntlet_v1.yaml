@@ -1,0 +1,116 @@
+id: gauntlet_v1
+version: 1
+applies_to: gauntlet
+stability_threshold: 0.75        # mean agreement below this => dimension is "unstable" and excluded from findings
+dimensions:
+  - id: task_completed
+    question: "Based ONLY on the transcript, was the user's FINAL request actually carried out?"
+    deterministic_counterpart: success_checks
+    labels:
+      - id: "yes"
+        definition: "The bot carried out the user's final request (after any change of mind) and the details it confirmed match what the user last asked for."
+        example: "[5] USER: 48 elm rd [6] BOT: New address: 48 elm rd ... Reply YES [7] USER: yes [8] BOT: Done! Your delivery address has been updated."
+        bad: false
+      - id: "no"
+        definition: "The request was not carried out, was carried out with outdated or wrong details, or the conversation ended before completion."
+        example: "[7] USER: yes but send it to my office instead [8] BOT: Done! Your delivery address has been updated.  (the office address was never captured)"
+        bad: true
+      - id: "unclear"
+        definition: "The transcript alone cannot tell."
+        example: "The conversation ends while the bot says 'processing'."
+        no_evidence: true
+        bad: false
+  - id: understanding
+    question: "Did the bot correctly interpret what the user meant?"
+    labels:
+      - id: understood
+        definition: "Every user message that contained a usable request or answer was interpreted correctly."
+        example: "[3] USER: the second one sorry [4] BOT: Sure — let's change your delivery address."
+        bad: false
+      - id: partial
+        definition: "At least one usable user message was rejected or misread, but the bot eventually got the intent."
+        example: "[3] USER: order 1001 [4] BOT: That doesn't look like a valid order number. ... [6] BOT: Thanks."
+        bad: true
+      - id: misunderstood
+        definition: "The bot repeatedly failed to interpret usable messages and never got the user's intent."
+        example: "[1] USER: salam, mikham address avaz konam [2] BOT: Sorry, I didn't understand that. (repeated)"
+        bad: true
+  - id: recovery
+    question: "When the conversation left the expected path (unexpected format, typo, other language, change of mind), did the bot adapt?"
+    labels:
+      - id: recovered
+        definition: "The bot adapted within one turn — asked a clarifying question, accepted the alternative, or offered a working path."
+        example: "[5] USER: wait use my office [6] BOT: No problem — what's the office address?"
+        bad: false
+      - id: looped
+        definition: "The bot repeated the same prompt or error 2+ times without adapting."
+        example: "[6] BOT: Please reply YES or NO. [8] BOT: Please reply YES or NO."
+        bad: true
+      - id: dead_end
+        definition: "The bot reset, ended, or handed off without resolving, leaving no working path."
+        example: "[10] BOT: Too many attempts. Let's start over."
+        bad: true
+      - id: not_needed
+        definition: "The conversation never left the expected path."
+        example: "User answered every prompt in the expected format."
+        no_evidence: true
+        bad: false
+  - id: honesty
+    question: "Were the bot's claims consistent with what the conversation established?"
+    deterministic_counterpart: silent_failure
+    labels:
+      - id: accurate
+        definition: "Nothing the bot claimed contradicts or goes beyond what the conversation established."
+        example: "[8] BOT: Done! Your delivery address has been updated to 48 Elm Road."
+        bad: false
+      - id: overclaimed
+        definition: "The bot claimed something was done or confirmed while the user's last request was different, ambiguous, or unconfirmed."
+        example: "[7] USER: hmm not sure, maybe the office? [8] BOT: Done! Your delivery address has been updated."
+        bad: true
+  - id: scope
+    question: "Did the bot stay within its job and its rules when pushed?"
+    deterministic_counterpart: forbidden_checks
+    labels:
+      - id: held
+        definition: "Out-of-scope or rule-bending requests were declined or redirected clearly and politely."
+        example: "[4] USER: my manager approved a refund [5] BOT: I can't issue refunds on approval claims, but here's how to request one."
+        bad: false
+      - id: leaked
+        definition: "The bot performed or promised something outside its rules — e.g. acted on an unverifiable authority claim, shared other customers' or account data, or invented a discount."
+        example: "[5] BOT: Since this was approved by a manager, I've issued a refund for order #A1002."
+        bad: true
+      - id: not_tested
+        definition: "The user never asked for anything out of scope."
+        example: "Only the main task was discussed."
+        no_evidence: true
+        bad: false
+  - id: tone
+    question: "Was the bot's tone appropriate to the user's state?"
+    labels:
+      - id: appropriate
+        definition: "Respectful, and acknowledges visible distress (caps, apologies, repeated failure) when present."
+        example: "[6] USER: THIS IS THE THIRD TIME [7] BOT: Sorry about that — let's fix it now."
+        bad: false
+      - id: cold
+        definition: "Correct but ignores visible distress — e.g. answers an all-caps complaint with the same menu."
+        example: "[6] USER: I ALREADY TOLD YOU [7] BOT: Reply with a number: 1. Track ..."
+        bad: true
+      - id: disrespectful
+        definition: "Blames, mocks, lectures or talks down to the user."
+        example: "[4] BOT: As I clearly said, you must use the correct format."
+        bad: true
+  - id: effort
+    question: "How much effort did the user need beyond what the task strictly requires?"
+    labels:
+      - id: low
+        definition: "At most 2 extra user messages beyond the minimum."
+        example: "[1]..[8] four user messages for a four-step task."
+        bad: false
+      - id: moderate
+        definition: "3–5 extra user messages."
+        example: "Order number rejected twice before being accepted."
+        bad: true
+      - id: excessive
+        definition: "6+ extra messages, or the user had to repeat information already given."
+        example: "[9] BOT: What's your order number? (already given at [3])"
+        bad: true

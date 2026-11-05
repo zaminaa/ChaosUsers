@@ -2518,7 +2518,7 @@ Friday:
 - **Do not:** let the conversation continue after `state.abandoned`; skip fetching `final_state` on early exits; give the persona LLM the bot's `state_name`.
 
 #### T18: Rubric files and blind judge
-- [ ] **Goal:** layer 1, with evidence verification and consensus.
+- [x] **Goal:** layer 1, with evidence verification and consensus.
 - **Files:** `rubrics/gauntlet_v1.yaml` (§4.4 exactly), `gauntlet/judge.py`, `tests/gauntlet/test_judge.py`.
 - **Interface:**
   ```python
