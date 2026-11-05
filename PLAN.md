@@ -2361,7 +2361,7 @@ Friday:
 - **Do not:** "improve" persona wording, numbers or names. They are calibrated against the mechanics in §2.7. Do not add personas.
 
 #### T10: Text operators and fidelity
-- [ ] **Goal:** deterministic, seeded behavior transforms and rule checks.
+- [x] **Goal:** deterministic, seeded behavior transforms and rule checks.
 - **Files:** `engine/__init__.py`, `engine/operators.py`, `engine/fidelity.py`, `tests/engine/test_operators.py`, `tests/engine/test_fidelity.py`.
 - **Interface:**
   ```python
