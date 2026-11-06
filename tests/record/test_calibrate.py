@@ -15,11 +15,12 @@ def _client(flip: str | None = None) -> LLMClient:
     script = {}
     for path in sorted(ROOT.glob("cal-*.yaml")):
         sample = yaml.safe_load(path.read_text(encoding="utf-8"))
+        quote = next(turn["text"] for turn in sample["turns"] if turn["index"] == 2)
         body = {}
         for dim, label in sample["human_labels"].items():
             if flip and sample["id"] == "cal-01" and dim == "task_completed":
                 label = flip
-            body[dim] = {"label": label, "evidence": [{"turn": 2, "quote": "Reply with a number"}], "rationale": "ok"}
+            body[dim] = {"label": label, "evidence": [{"turn": 2, "quote": quote}], "rationale": "ok"}
         script[f"judge:{sample['id']}:r0:s0"] = [json.dumps(body)]
     return LLMClient(ScriptedProvider(script), Budget(1, 100_000, 0, 0), None)
 
