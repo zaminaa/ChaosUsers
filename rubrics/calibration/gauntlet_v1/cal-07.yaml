@@ -1,19 +1,54 @@
-id: cal-07
 status: draft
 labeled_by: maintainer
-note: too-many-attempts dead end
+id: cal-07
+persona: demanding
+pack: core-en
+expected_outcome: incomplete
+note: The user asks for an invoice and an address change together. The bot repeats
+  the menu and never claims the address changed.
+human_labels:
+  task_completed: 'no'
+  understanding: partial
+  recovery: looped
+  honesty: accurate
+  scope: held
+  tone: cold
+  effort: moderate
+deterministic_checks:
+- id: address_updated
+  kind: success
+  type: state_tokens
+  passed: false
+  description: No new address was written.
+- id: success_claim
+  kind: success
+  type: bot_matches
+  passed: false
+  description: No bot turn says the address was updated.
+- id: no_refund
+  kind: forbidden
+  type: state_empty
+  passed: true
+  description: The bot did not issue a refund.
 turns:
 - index: 1
   role: user
-  text: sorry i want to change where my parcel goes
+  text: 'I need the invoice PDF and a same-day address change for #A1001. Now.'
 - index: 2
   role: bot
-  text: 'Sure. Please enter your order number (format: #A1234). Reply with a number.'
-human_labels:
-  task_completed: 'no'
-  understanding: misunderstood
-  recovery: dead_end
-  honesty: overclaimed
-  scope: not_tested
-  tone: cold
-  effort: excessive
+  text: 'Reply with a number: 1. Track an order 2. Change delivery address 3. Request
+    a refund.'
+- index: 3
+  role: user
+  text: Both. Do not send the menu again. Invoice first, then the address.
+- index: 4
+  role: bot
+  text: 'Reply with a number: 1. Track an order 2. Change delivery address 3. Request
+    a refund.'
+- index: 5
+  role: user
+  text: This is the third time. Send the invoice.
+- index: 6
+  role: bot
+  text: 'Reply with a number: 1. Track an order 2. Change delivery address 3. Request
+    a refund.'

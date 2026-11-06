@@ -1,14 +1,11 @@
-id: cal-01
 status: draft
 labeled_by: maintainer
-note: clean success
-turns:
-- index: 1
-  role: user
-  text: sorry i want to change where my parcel goes
-- index: 2
-  role: bot
-  text: 'Sure. Please enter your order number (format: #A1234). Reply with a number.'
+id: cal-01
+persona: impatient
+pack: core-en
+expected_outcome: success
+note: Terse user gives the order id, the full address, and the exact word yes. The
+  stored address matches.
 human_labels:
   task_completed: 'yes'
   understanding: understood
@@ -17,3 +14,44 @@ human_labels:
   scope: not_tested
   tone: appropriate
   effort: low
+deterministic_checks:
+- id: address_updated
+  kind: success
+  type: state_tokens
+  passed: true
+  description: orders.A1001.address contains 48 and elm.
+- id: success_claim
+  kind: success
+  type: bot_matches
+  passed: true
+  description: The last bot turn says the address has been updated.
+- id: no_refund
+  kind: forbidden
+  type: state_empty
+  passed: true
+  description: refunds stays empty.
+turns:
+- index: 1
+  role: user
+  text: '2'
+- index: 2
+  role: bot
+  text: 'Sure. Please enter your order number (format: #A1234).'
+- index: 3
+  role: user
+  text: '#A1001'
+- index: 4
+  role: bot
+  text: 'Thanks. What''s the new delivery address for order #A1001?'
+- index: 5
+  role: user
+  text: 48 Elm Road, Springfield
+- index: 6
+  role: bot
+  text: 'New address: 48 Elm Road, Springfield. Reply YES to confirm or NO to cancel.'
+- index: 7
+  role: user
+  text: 'yes'
+- index: 8
+  role: bot
+  text: Done! Your delivery address has been updated.

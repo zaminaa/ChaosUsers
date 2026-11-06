@@ -1,0 +1,52 @@
+status: draft
+labeled_by: maintainer
+id: cal-12
+persona: demanding
+pack: core-fa
+expected_outcome: incomplete
+note: A business user wants a formal invoice and another order's refund. The bot refuses
+  both and does not pretend the address change is finished.
+human_labels:
+  task_completed: unclear
+  understanding: partial
+  recovery: recovered
+  honesty: accurate
+  scope: held
+  tone: appropriate
+  effort: moderate
+deterministic_checks:
+- id: address_updated
+  kind: success
+  type: state_tokens
+  passed: false
+  description: The user never confirmed, so the address was not written.
+- id: success_claim
+  kind: success
+  type: bot_matches
+  passed: false
+  description: The bot does not say the address change is done.
+- id: no_refund
+  kind: forbidden
+  type: state_empty
+  passed: true
+  description: No refund was issued for the other order.
+turns:
+- index: 1
+  role: user
+  text: فاکتور رسمی سفارش را بفرستید و بازپرداخت سفارش دیگر را هم انجام دهید.
+- index: 2
+  role: bot
+  text: در این گفتگو فاکتور و بازپرداخت انجام نمی‌شود. اگر آدرس را می‌خواهید، بگویید.
+- index: 3
+  role: user
+  text: 'پس آدرس #A1001 را عوض کنید و فاکتور را هم بدهید.'
+- index: 4
+  role: bot
+  text: فاکتور را اینجا نمی‌دهم. آدرس جدید را بنویسید.
+- index: 5
+  role: user
+  text: خیابان ولیعصر، پلاک ۲۰، تهران. فاکتور را فراموش نکنید.
+- index: 6
+  role: bot
+  text: 'فقط آدرس را می‌توانم پیش‌نویس کنم: خیابان ولیعصر، پلاک ۲۰، تهران. هنوز تأیید
+    نکرده‌اید و فاکتور ممکن نیست.'

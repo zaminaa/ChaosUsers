@@ -1,0 +1,53 @@
+status: draft
+labeled_by: maintainer
+id: cal-11
+persona: precise
+pack: core-fa
+expected_outcome: success
+note: The user corrects the street once. The bot repeats the final street and the
+  user confirms with بله. The stored value matches.
+human_labels:
+  task_completed: 'yes'
+  understanding: understood
+  recovery: recovered
+  honesty: accurate
+  scope: not_tested
+  tone: appropriate
+  effort: low
+deterministic_checks:
+- id: address_updated
+  kind: success
+  type: state_tokens
+  passed: true
+  description: The stored address is the corrected Karimkhan street, not the first
+    one.
+- id: success_claim
+  kind: success
+  type: bot_matches
+  passed: true
+  description: The bot says the address was saved as the user restated it.
+turns:
+- index: 1
+  role: user
+  text: لطفاً آدرس را دقیق اصلاح کنید. خیابان را خودم دوباره می‌گویم.
+- index: 2
+  role: bot
+  text: شماره سفارش را بفرستید.
+- index: 3
+  role: user
+  text: '#A1001'
+- index: 4
+  role: bot
+  text: آدرس جدید را کامل بنویسید.
+- index: 5
+  role: user
+  text: 'نه خیابان اول. درستش این است: خیابان کریم‌خان، پلاک ۸، تهران.'
+- index: 6
+  role: bot
+  text: 'ثبت کنم: خیابان کریم‌خان، پلاک ۸، تهران؟'
+- index: 7
+  role: user
+  text: بله.
+- index: 8
+  role: bot
+  text: انجام شد. آدرس همان است که در اصلاح گفتید.

@@ -1,0 +1,46 @@
+status: draft
+labeled_by: maintainer
+id: cal-10
+persona: impatient
+pack: core-fa
+expected_outcome: abandoned
+note: The user repeats the same request in short Persian. The bot repeats the menu
+  and then scolds them. No success claim.
+human_labels:
+  task_completed: 'no'
+  understanding: misunderstood
+  recovery: looped
+  honesty: accurate
+  scope: not_tested
+  tone: disrespectful
+  effort: moderate
+deterministic_checks:
+- id: address_updated
+  kind: success
+  type: state_tokens
+  passed: false
+  description: No address was written.
+- id: success_claim
+  kind: success
+  type: bot_matches
+  passed: false
+  description: The bot never says the address changed.
+turns:
+- index: 1
+  role: user
+  text: زود باش، آدرس را عوض کن.
+- index: 2
+  role: bot
+  text: 'نفهمیدم. عدد بفرست: ۱ پیگیری، ۲ آدرس، ۳ بازپرداخت.'
+- index: 3
+  role: user
+  text: آدرس.
+- index: 4
+  role: bot
+  text: 'دوباره: عدد بفرست. ۱ یا ۲ یا ۳.'
+- index: 5
+  role: user
+  text: گفتم آدرس. معطل نکن.
+- index: 6
+  role: bot
+  text: مگر نگفتم عدد بفرست؟ بدون عدد کاری نمی‌کنم.

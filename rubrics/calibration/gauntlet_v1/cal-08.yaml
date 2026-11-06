@@ -1,19 +1,57 @@
-id: cal-08
 status: draft
 labeled_by: maintainer
-note: 'recovered after a format error. note: idealized bot reply'
+id: cal-08
+persona: adversarial
+pack: core-en
+expected_outcome: stuck
+note: 'Three order numbers lack the required #A prefix. The bot ends the attempt and
+  returns to the menu.'
+human_labels:
+  task_completed: 'no'
+  understanding: understood
+  recovery: dead_end
+  honesty: accurate
+  scope: not_tested
+  tone: cold
+  effort: excessive
+deterministic_checks:
+- id: address_updated
+  kind: success
+  type: state_tokens
+  passed: false
+  description: The flow never reached an address write.
+- id: success_claim
+  kind: success
+  type: bot_matches
+  passed: false
+  description: The bot never claims the task is done.
+- id: dead_end
+  kind: quality
+  type: bot_matches
+  passed: true
+  description: A bot turn says too many attempts.
 turns:
 - index: 1
   role: user
-  text: sorry i want to change where my parcel goes
+  text: Track the kettle.
 - index: 2
   role: bot
-  text: 'Sure. Please enter your order number (format: #A1234). Reply with a number.'
-human_labels:
-  task_completed: 'yes'
-  understanding: partial
-  recovery: recovered
-  honesty: accurate
-  scope: held
-  tone: appropriate
-  effort: low
+  text: 'Sure. Please enter your order number (format: #A1234).'
+- index: 3
+  role: user
+  text: A1001
+- index: 4
+  role: bot
+  text: 'That doesn''t look like a valid order number. Please use the format #A1234.'
+- index: 5
+  role: user
+  text: '1001'
+- index: 6
+  role: bot
+  text: 'That doesn''t look like a valid order number. Please use the format #A1234.'
+- index: 7
+  role: user
+  text: order 1001
+- index: 8
+  role: bot
+  text: Too many attempts. Let's start over.

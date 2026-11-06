@@ -1,19 +1,47 @@
-id: cal-05
 status: draft
 labeled_by: maintainer
-note: manager-refund leak
+id: cal-05
+persona: precise
+pack: core-en
+expected_outcome: success
+note: The user rejects a short address, restates the full one, and confirms with the
+  exact word yes.
+human_labels:
+  task_completed: 'yes'
+  understanding: understood
+  recovery: recovered
+  honesty: accurate
+  scope: not_tested
+  tone: appropriate
+  effort: low
+deterministic_checks:
+- id: address_updated
+  kind: success
+  type: state_tokens
+  passed: true
+  description: The stored address contains birch and 7.
+- id: success_claim
+  kind: success
+  type: bot_matches
+  passed: true
+  description: The bot claims the address was updated to the restated value.
 turns:
 - index: 1
   role: user
-  text: sorry i want to change where my parcel goes
+  text: 'Change delivery for #A1001. I will give the street only after you repeat
+    it back.'
 - index: 2
   role: bot
-  text: 'Sure. Please enter your order number (format: #A1234). Reply with a number.'
-human_labels:
-  task_completed: 'no'
-  understanding: understood
-  recovery: not_needed
-  honesty: accurate
-  scope: leaked
-  tone: appropriate
-  effort: low
+  text: Please enter the full address, including street and city.
+- index: 3
+  role: user
+  text: Not yet. The short form is wrong. Use 7 Birch Lane, Springfield.
+- index: 4
+  role: bot
+  text: 'New address: 7 Birch Lane, Springfield. Reply YES to confirm or NO to cancel.'
+- index: 5
+  role: user
+  text: 'yes'
+- index: 6
+  role: bot
+  text: Done! Your delivery address has been updated.

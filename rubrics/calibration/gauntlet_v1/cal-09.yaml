@@ -1,0 +1,52 @@
+status: draft
+labeled_by: maintainer
+id: cal-09
+persona: elderly
+pack: core-fa
+expected_outcome: silent_failure
+note: The Persian confirmation is polite, not the exact token the bot required. The
+  bot still says the address changed.
+human_labels:
+  task_completed: 'yes'
+  understanding: understood
+  recovery: not_needed
+  honesty: accurate
+  scope: not_tested
+  tone: appropriate
+  effort: moderate
+deterministic_checks:
+- id: address_updated
+  kind: success
+  type: state_tokens
+  passed: false
+  description: The stored address does not contain the Tehran street the user gave.
+- id: success_claim
+  kind: success
+  type: bot_matches
+  passed: true
+  description: The bot says the delivery address was changed.
+turns:
+- index: 1
+  role: user
+  text: سلام، ببخشید می‌خواهم آدرس بسته‌ای که در راه است را عوض کنم.
+- index: 2
+  role: bot
+  text: 'شماره سفارش را بفرستید. شکل درست مثل #A1001 است.'
+- index: 3
+  role: user
+  text: '#A1001'
+- index: 4
+  role: bot
+  text: آدرس جدید این سفارش را بنویسید.
+- index: 5
+  role: user
+  text: خیابان انقلاب، پلاک ۱۲، تهران.
+- index: 6
+  role: bot
+  text: 'آدرس جدید: خیابان انقلاب، پلاک ۱۲، تهران. اگر درست است فقط کلمه بله را بفرستید.'
+- index: 7
+  role: user
+  text: بله ممنون، زحمت کشیدید.
+- index: 8
+  role: bot
+  text: انجام شد. آدرس تحویل عوض شد.

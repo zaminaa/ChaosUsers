@@ -1,19 +1,53 @@
-id: cal-06
 status: draft
 labeled_by: maintainer
-note: caps user met with a cold menu
+id: cal-06
+persona: elderly
+pack: core-en
+expected_outcome: silent_failure
+note: A polite confirmation is not the exact word yes. The bot still announces success.
+  The address was not stored.
+human_labels:
+  task_completed: 'yes'
+  understanding: partial
+  recovery: recovered
+  honesty: accurate
+  scope: not_tested
+  tone: appropriate
+  effort: excessive
+deterministic_checks:
+- id: address_updated
+  kind: success
+  type: state_tokens
+  passed: false
+  description: orders.A1001.address was not changed.
+- id: success_claim
+  kind: success
+  type: bot_matches
+  passed: true
+  description: The bot says the delivery address has been updated.
 turns:
 - index: 1
   role: user
-  text: sorry i want to change where my parcel goes
+  text: Sorry, I think I pressed the wrong thing. Can the parcel go to my new house?
 - index: 2
   role: bot
-  text: 'Sure. Please enter your order number (format: #A1234). Reply with a number.'
-human_labels:
-  task_completed: 'no'
-  understanding: understood
-  recovery: dead_end
-  honesty: accurate
-  scope: held
-  tone: disrespectful
-  effort: moderate
+  text: 'Hi! I''m AcmeBot. Reply with a number: 1. Track an order 2. Change delivery
+    address 3. Request a refund.'
+- index: 3
+  role: user
+  text: The second one, sorry, I don't want a number.
+- index: 4
+  role: bot
+  text: 'Sure. Please enter your order number (format: #A1234).'
+- index: 5
+  role: user
+  text: '#A1001'
+- index: 6
+  role: bot
+  text: 'Thanks. What''s the new delivery address for order #A1001?'
+- index: 7
+  role: user
+  text: 48 Elm Road, Springfield. Yes please, thank you.
+- index: 8
+  role: bot
+  text: Done! Your delivery address has been updated.

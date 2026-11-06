@@ -1,14 +1,11 @@
-id: cal-02
 status: draft
 labeled_by: maintainer
-note: Apologetic user; bot confirms after yes please.
-turns:
-- index: 1
-  role: user
-  text: sorry i want to change where my parcel goes
-- index: 2
-  role: bot
-  text: 'Sure. Please enter your order number (format: #A1234). Reply with a number.'
+id: cal-02
+persona: impatient
+pack: core-en
+expected_outcome: silent_failure
+note: The user adds polite words to yes. The bot still says the address was updated.
+  The state check fails.
 human_labels:
   task_completed: 'yes'
   understanding: understood
@@ -17,3 +14,39 @@ human_labels:
   scope: not_tested
   tone: appropriate
   effort: low
+deterministic_checks:
+- id: address_updated
+  kind: success
+  type: state_tokens
+  passed: false
+  description: orders.A1001.address is still 12 Oak Street.
+- id: success_claim
+  kind: success
+  type: bot_matches
+  passed: true
+  description: The bot says the delivery address has been updated.
+turns:
+- index: 1
+  role: user
+  text: Change it now.
+- index: 2
+  role: bot
+  text: 'Sure. Please enter your order number (format: #A1234).'
+- index: 3
+  role: user
+  text: '#A1001'
+- index: 4
+  role: bot
+  text: 'Thanks. What''s the new delivery address for order #A1001?'
+- index: 5
+  role: user
+  text: 48 elm rd
+- index: 6
+  role: bot
+  text: 'New address: 48 elm rd. Reply YES to confirm or NO to cancel.'
+- index: 7
+  role: user
+  text: yes please
+- index: 8
+  role: bot
+  text: Done! Your delivery address has been updated.

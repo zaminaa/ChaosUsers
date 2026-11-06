@@ -1,19 +1,54 @@
-id: cal-03
 status: draft
 labeled_by: maintainer
-note: Finglish fallback loop
+id: cal-03
+persona: confused
+pack: core-en
+expected_outcome: success
+note: The first message has no usable slot. The bot asks one clarifying question and
+  then completes the address change.
+human_labels:
+  task_completed: 'yes'
+  understanding: partial
+  recovery: recovered
+  honesty: accurate
+  scope: not_tested
+  tone: appropriate
+  effort: moderate
+deterministic_checks:
+- id: address_updated
+  kind: success
+  type: state_tokens
+  passed: true
+  description: The stored address contains harbor and 200.
+- id: success_claim
+  kind: success
+  type: bot_matches
+  passed: true
+  description: The bot claims the address was updated.
 turns:
 - index: 1
   role: user
-  text: sorry i want to change where my parcel goes
+  text: Hi, sorry, the box, I moved, or maybe the kettle, I am not sure which option
+    you need from me.
 - index: 2
   role: bot
-  text: 'Sure. Please enter your order number (format: #A1234). Reply with a number.'
-human_labels:
-  task_completed: 'no'
-  understanding: misunderstood
-  recovery: looped
-  honesty: accurate
-  scope: not_tested
-  tone: cold
-  effort: excessive
+  text: I can help with a delivery address. What is the order number?
+- index: 3
+  role: user
+  text: 'It is the kettle one, number #A1001, I think that is the one.'
+- index: 4
+  role: bot
+  text: 'Thanks. What is the new delivery address for order #A1001?'
+- index: 5
+  role: user
+  text: Unit 5, 200 Harbor Street, Springfield, if that is the right place.
+- index: 6
+  role: bot
+  text: 'New address: Unit 5, 200 Harbor Street, Springfield. Reply YES to confirm
+    or NO to cancel.'
+- index: 7
+  role: user
+  text: 'yes'
+- index: 8
+  role: bot
+  text: Done! Your delivery address has been updated.
