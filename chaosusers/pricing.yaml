@@ -1,9 +1,11 @@
-# USD per 1M tokens. Verify against provider pricing pages before each release.
+# USD per 1M tokens.
+# TODO 2026-11-06: none of the four rows below was re-read from the provider pricing page in this change.
+# Do not treat the numbers as verified. Tests lock the current values; a release must replace each TODO with a source URL and the date it was checked.
 models:
-  gpt-4.1-mini:      {in: 0.40, out: 1.60}
-  gpt-4.1:           {in: 2.00, out: 8.00}
-  claude-haiku-4-5:  {in: 1.00, out: 5.00}
-  claude-sonnet-4-5: {in: 3.00, out: 15.00}
+  gpt-4.1-mini:      {in: 0.40, out: 1.60}   # TODO unverified
+  gpt-4.1:           {in: 2.00, out: 8.00}   # TODO unverified
+  claude-haiku-4-5:  {in: 1.00, out: 5.00}   # TODO unverified
+  claude-sonnet-4-5: {in: 3.00, out: 15.00}  # TODO unverified
 defaults:
   openai: gpt-4.1-mini
   anthropic: claude-haiku-4-5
